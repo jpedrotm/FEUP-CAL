@@ -1,5 +1,6 @@
 #include "Adress.h"
 
+using namespace std;
 Adress::Adress(string street, string local, int x, int y) {
   this->street = street;
   this->local = local;

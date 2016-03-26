@@ -1,5 +1,6 @@
 #include "User.h"
 
+using namespace std;
 User::User(string name, int age, Adress adress, Trip trip) {
   this->name = name;
   this->age = age;
