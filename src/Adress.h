@@ -9,7 +9,7 @@ using namespace std;
 class Adress {
   string street;
   string local;
-  int coordX, coordY;
+  int lat, lon;
 
 public:
   Adress(){};
@@ -17,8 +17,8 @@ public:
   //--------------------------------------------------------------------------------------------------------
   string getStreet();
   string getLocal();
-  int getCoordX();
-  int getCoordY();
+  int getLatitude();
+  int getLongitude();
   //--------------------------------------------------------------------------------------------------------
   void printAdress();
 };

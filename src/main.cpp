@@ -4,7 +4,6 @@
 using namespace std;
 
 int main() {
-  cout << "Ola";
   Interface I = Interface();
   I.displayMenu();
 

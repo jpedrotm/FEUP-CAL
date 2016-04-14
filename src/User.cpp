@@ -14,6 +14,11 @@ User::User(string name, int age, Adress adress) {
   this->adress = adress;
 }
 
+User::User(string name,int age){
+	this->name = name;
+	this->age = age;
+}
+
 //------------------------------------------------------------------------------------------------
 string User::getName() { return name; }
 

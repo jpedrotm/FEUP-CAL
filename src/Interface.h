@@ -10,10 +10,10 @@ using namespace std;
 
 class Interface {
   vector<User> users;
-  int option;
 
 public:
   Interface();
+
   void displayMenu();
   void displayUsers();
   void newUser();

@@ -14,6 +14,7 @@ class User {
 public:
   User(string name, int age, Adress adress, Trip trip);
   User(string name, int age, Adress adress);
+  User(string name,int age);
   //----------------------------------------------------------------------------------------------------------
   string getName();
   int getAge();

@@ -1,23 +1,23 @@
 #include "Adress.h"
 
 using namespace std;
-Adress::Adress(string street, string local, int x, int y) {
+Adress::Adress(string street, string local, int latitude, int longitude) {
   this->street = street;
   this->local = local;
-  this->coordX = x;
-  this->coordY = y;
+  this->lat = latitude;
+  this->lon = longitude;
 }
 
 string Adress::getStreet() { return street; }
 
 string Adress::getLocal() { return local; }
 
-int Adress::getCoordX() { return coordX; }
+int Adress::getLatitude() { return lat; }
 
-int Adress::getCoordY() { return coordY; }
+int Adress::getLongitude() { return lon; }
 
 void Adress::printAdress() {
   cout << street << ", " << local << " | "
-       << "X: " << coordX << ", "
-       << "Y: " << coordY;
+       << "Latitude: " << lat << ", "
+       << "Longitude: " << lon;
 }

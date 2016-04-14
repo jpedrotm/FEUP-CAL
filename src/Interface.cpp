@@ -15,15 +15,28 @@ void Interface::displayMenu() {
   cout << "2-See all users." << endl;
   nOptions++;
   cout << "3-Exit." << endl;
+
+  do{
   cin >> option;
+
   try {
     if (option < 1 || option > nOptions)
-      throw IlegalOptionException();
+      {
+    	option=0;
+    	throw IlegalOptionException();
+      }
   } catch (IlegalOptionException &e) {
     cout << "Not a possible option. Please choose other." << endl;
-    return;
   }
-  this->option = option;
+  }while(option==0);
+
+  if(option==1)
+	  newUser();
+  else if(option==2)
+	  displayUsers();
+  else if(option==3)
+	  return;
+
   cout << endl;
 }
 
@@ -43,4 +56,28 @@ void Interface::displayUsers() {
       cout << endl;
     }
   }
+
+  cout << "Press enter to go for main menu.";
+  string inp;
+  cin >> inp;
+  displayMenu();
+}
+
+void Interface::newUser(){
+
+	string name;
+	int age,ID;
+
+	cout << "Name: ";
+	cin >> name;
+
+	cout << "Age: ";
+	cin >> age;
+
+	cout << "What is the ID of your Adress: ";
+	cin >> ID;
+
+	users.push_back(User(name,age));
+
+	displayMenu();
 }
