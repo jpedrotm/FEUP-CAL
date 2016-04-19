@@ -60,6 +60,7 @@ void Interface::displayUsers() {
   cout << "Press enter to go for main menu.";
   string inp;
   cin >> inp;
+
   displayMenu();
 }
 

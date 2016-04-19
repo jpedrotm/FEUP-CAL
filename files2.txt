@@ -1,0 +1,375 @@
+4257028;;False
+4259343;;False
+4259345;;False
+4259341;;False
+4259344;;False
+4306662;;False
+4306661;;False
+13797528;Rua de Silva Brinco;False
+13798046;;False
+13798158;;False
+13798089;Rua da Igreja de Paranhos;False
+13798291;;False
+13798688;Rua do Amial;False
+13798716;Rua do Amial;False
+26248552;Rua da Asprela;False
+26248558;Rua de Oliveira Gaio;False
+27103806;Rua da Telheira;True
+27149266;Rua Engenheiro Carlos Amarante;True
+29035149;Estrada da Circunvalação;False
+29035151;Estrada da Circunvalação;False
+30912876;;False
+30912875;;False
+30912874;Rua da Igreja de Paranhos;False
+30912878;Rua de Carlos da Maia;False
+41284280;Travessa da Ferreira;False
+41380173;;False
+30911275;Rua Luís Woodhouse;False
+34771961;Rua de Costa e Almeida;False
+13798272;;False
+13798575;;False
+34798406;Rua da Igreja de Paranhos;False
+13798105;;False
+35006697;;False
+35078499;Largo da Igreja de Paranhos;False
+13798541;Rua da Igreja de Paranhos;True
+35078680;Largo da Igreja de Paranhos;False
+35078502;Rua do Doutor Manuel Laranjeira;False
+35085950;;False
+35105022;Rua Actor Ferreira da Silva;False
+30912893;Nova Travessa do Vale Formoso;False
+26248563;Rua de Leonardo Coimbra;False
+26248567;Rua de Leonardo Coimbra;False
+35104968;;False
+26248565;Rua de Delfim Maia;False
+26248564;Rua de Dionísio Santos Silva;False
+35104970;Rua de Leonardo Coimbra;False
+35112603;Rua Professor Mendes Correia; Rua do Relógio;False
+34968603;Rua do Relógio;False
+35145153;Rua Alfredo Allen;False
+35078500;Rua Doutor Manuel Pereira da Silva;True
+35078501;Rua do Doutor Manuel Laranjeira;True
+35105021;Rua do Guadiana;True
+35473999;Rua Júlio Ramos;False
+35727408;Rua de Delfim Maia;False
+35727410;Rua de Delfim Maia;False
+35997763;Rua do Bairro da Areosa;False
+35997762;Estrada da Circunvalação;False
+36001071;Alameda Professor Hernâni Monteiro;False
+36005754;Rua da Capela do Telheiro;False
+36824722;Travessa da Via Sacra;False
+36869473;Rua de Carvalho Araújo;False
+36869474;Rua da Via Sacra;False
+36905352;Rua da Arroteia;False
+36996748;Rua da Arroteia;True
+36996745;Caminho da Asprela;True
+36996746;Rua Particular da Arroteia;True
+36996349;Rua Doutor Barros;True
+36996353;Rua do Mestre Guilherme Camarinha;True
+36997782;Rua Doutor Campos Monteiro;True
+37111744;Rua Joaquim Teixeira Leite;True
+37120133;Rua da Asprela;False
+37120135;Rua Amândio Galhano;False
+37120543;;True
+37120542;;True
+37120545;Rua Gonçalo Mendes da Maia;True
+37142500;Autoestrada de Entre-Douro-e-Minho;False
+37141974;;False
+37141984;Rua do Vouga;False
+37141983;Rua Actor Eduardo Brazão;False
+37141982;;False
+37141985;Rua do Corgo;False
+37141968;;False
+37143414;;False
+37194468;Travessa da Bouça da Cavadinha;False
+37202414;Rua Maria Feliciana;True
+37202411;Rua Maria Feliciana;True
+37202416;Travessa da Arroteia;True
+37338732;;True
+37338733;;True
+37338734;Rua Doutor Carlos Ramos;False
+37338735;Rua de Sá Miranda;False
+36997781;Rua Doutor Campos Monteiro;True
+37855520;;True
+37855521;;True
+37855522;;True
+37855524;;True
+37855528;;False
+37855519;;False
+37855531;Rua Agra do Amial;False
+37855527;Rua Armando Cardoso;False
+37855526;Rua da Ribeira Grande;False
+37855523;Rua Académico Futebol Clube;False
+37856479;;False
+37856480;;False
+37856481;;False
+37856482;;False
+37856823;;False
+37856824;;False
+37856825;;False
+37937534;;False
+37937531;;False
+37937532;;False
+37937530;Rua do Tâmega;False
+38001349;;False
+51228960;;False
+63192525;Rua Henrique de Sousa Reis;False
+63844519;Travessa da Fonte;False
+63844520;Rua Particular da Tapada de Santo António;False
+36997788;Rua da Fonte;False
+36997785;Rua da Fonte;False
+36997787;Rua do Carriçal;False
+35145522;Rua Alfredo Allen;False
+37856053;;False
+37143412;Rua Conde de Avranches;False
+141476899;Rua Doutor António Bernardino de Almeida;False
+35997812;Rua do Mondego;False
+104915571;Rua de Faria Guimarães;False
+34777927;;False
+13798242;;False
+29036513;;False
+36996749;Rua da Arroteia;True
+157160144;Rua do Mestre Guilherme Camarinha;True
+37856049;Rua Doutor António Bernardino de Almeida;False
+141476900;Rua Doutor António Bernardino de Almeida;False
+141476901;Rua Doutor António Bernardino de Almeida;False
+26248559;Rua Doutor António Bernardino de Almeida;False
+36996354;Rua do Mestre Guilherme Camarinha;False
+35145272;Rua Júlio Amaral de Carvalho;False
+35145152;;True
+37352975;Rua do Mestre Guilherme Camarinha;True
+35145521;Rua Doutor Roberto Frias;True
+37352974;;True
+13797704;Rua do Vale Formoso;True
+36996747;Rua Bouça da Cavadinha;True
+37120544;Rua Gonçalo Mendes da Maia;True
+106115722;;False
+106334856;;False
+106334858;;False
+106334859;;False
+106334860;;False
+106334862;;False
+106334863;;False
+106334866;;False
+37937529;;False
+37141967;Rua Dom Frei Vicente da Soledade e Castro;True
+36997783;Rua das Flores;False
+36996750;Travessa Maria Feliciana;True
+38001352;Estrada da Circunvalação;False
+30912877;Rua de Luz Soriano;False
+108480588;Rua da Arroteia;True
+219537531;Rua da Igreja de Paranhos;True
+34774629;Rua da Igreja de Paranhos;True
+220234010;Estrada da Circunvalação;False
+220234012;Autoestrada de Entre-Douro-e-Minho;False
+220234011;Autoestrada de Entre-Douro-e-Minho;False
+13798931;;False
+13798889;;False
+13798768;;False
+13798803;;False
+13797785;;False
+13797813;;False
+34777947;;False
+13797951;;False
+13797988;;False
+160379543;Entrada Urgências;False
+36996350;Rua dos Bombeiros Voluntários de São Mamede de Infesta;True
+166972993;Rua do Amial;True
+63844506;Rua do Amial;True
+13798545;Rua Igreja de Paranhos;False
+252333763;Travessa Doutor Barros;True
+37120131;Travessa Doutor Barros;True
+252334869;Rua Professor Armando de Castro;True
+252338680;Rua do Carriçal;False
+195652236;Rua da Santa Maria;False
+195652241;;False
+195652243;Praça da Ilha Brava;False
+195653648;Rua da Ilha Verde;False
+37141975;;False
+37141973;;False
+196972618;;False
+196972619;;False
+196972617;;False
+197100020;Rua do Tua;False
+197100021;;False
+197100437;Rua António de Sousa e Silva;False
+198248589;;False
+198248591;;False
+198248726;;False
+198248722;;False
+198248907;;False
+198248908;;False
+198248910;;False
+198248909;;False
+200205516;Rua Cidade de Vigo;False
+200207562;Travessa da Tapada de Santo António;False
+200207563;Rua Albertina de Sousa Paraíso;False
+189312418;Rua de Faria Guimarães;False
+205638146;;False
+205638142;Acesso consultas externas;False
+205638147;;True
+205638144;;False
+205638880;;False
+228569586;Rua Nove de Abril;False
+206843931;Rua do Doutor Manuel Laranjeira;False
+206867055;Rua Professor Armando de Castro;True
+206867053;;False
+206868043;;False
+208263088;;True
+208262837;;True
+208265320;;True
+208272059;;True
+209633322;Alameda Professor Hernâni Monteiro;True
+13798697;Rua do Amial;True
+211339124;Rua de Sacadura Cabral;True
+212708376;Rua de Álvaro Castelões;True
+254726047;;True
+254726050;;True
+236978557;;True
+37143413;Rua Coronel Almeida Valente;True
+311394889;Rua das Desertas;True
+311394890;Rua de Maio;True
+311394891;Rua de Porto Santo;True
+311394892;Rua de São Jorge;True
+311394893;;True
+311394895;;True
+254724123;Rua Benjamim Gouveia;True
+37855525;Rua da Azenha;False
+195652234;Rua da Ilha Terceira;False
+195652232;Rua de Santiago;False
+195652235;Rua de Santo Antão;False
+166972992;Rua do Amial;True
+195652238;Rua do Corvo;True
+195652231;Rua do Fogo;True
+195652233;Rua do Pico;True
+195652240;Rua do Príncipe;True
+195652230;Rua do Sal;True
+238249552;;True
+238249553;;True
+238249554;;True
+238249556;;True
+238249557;;True
+35997529;Rua de São Tomé;True
+256605509;Rua do Amial;True
+256605510;Rua do Amial;True
+38001351;Estrada da Circunvalação;False
+240884741;Rua Coronel Almeida Valente;False
+37112931;Rua Nova do Tronco;False
+241285511;;False
+241364286;Rua de Faria Guimarães;False
+189312419;Rua de Faria Guimarães;False
+13797865;;False
+241364281;Rua da Igreja de Paranhos;False
+241364282;Rua da Igreja de Paranhos;True
+13798192;;False
+241364287;;False
+13797903;;False
+263330573;Rua Nove de Abril;False
+228569588;Rua de Monsanto;False
+35104969;Rua de Delfim Maia;False
+280570948;Rua Conde de Avranches;False
+36965446;Travessa da Asprela;False
+256605511;Rua Conde de Avranches;False
+286085489;Rua Doutor Roberto Frias;False
+286085490;Alameda Professor Hernâni Monteiro;False
+29036508;;False
+345566829;;False
+345566831;;False
+345566834;;False
+345566832;;False
+308678904;Rua Raul Castro;False
+308678907;Rua Raul Castro;False
+308678933;Rua Professor Armando de Castro;False
+308678935;Rua Raul Castro;False
+63848181;;False
+308678923;;False
+308678934;;False
+308678936;Estrada da Circunvalação;False
+308678928;Estrada da Circunvalação;False
+29036509;;False
+349643787;Alameda Professor Hernâni Monteiro;False
+349643887;Rua Doutor Plácido da Costa;False
+349643889;Rua Doutor Plácido da Costa;False
+349643891;Rua do Mestre Guilherme Camarinha;False
+349643894;Rua do Mestre Guilherme Camarinha;False
+349643896;Rua do Mestre Guilherme Camarinha;False
+349643898;Rua do Mestre Guilherme Camarinha;False
+349643961;;False
+349643964;;False
+36979228;Rua Doutor Plácido da Costa;False
+106334867;;False
+205638145;;False
+205638878;;True
+106334861;;True
+106334864;;True
+316459169;Rua Doutor Roberto Frias;False
+252338683;Rua de Silva Brinco (Antiga EN 14);False
+351525659;Entrada Urgências;False
+351525660;Entrada Urgências;False
+351525662;Estrada da Circunvalação;False
+351525669;Estrada da Circunvalação;False
+351525676;Estrada da Circunvalação;False
+351525677;Estrada da Circunvalação;False
+351525693;;False
+351525701;;False
+351525704;;False
+351525712;;False
+351525716;;False
+351525718;;False
+351525727;;False
+351525728;;False
+351525729;;False
+351525730;;False
+351525732;;False
+351525734;;False
+351525736;;False
+351525738;;False
+351525741;;False
+351525742;;False
+351525744;;False
+351525748;;False
+351525749;;False
+351525751;;False
+351525760;;False
+351525763;;False
+351525764;;False
+351525766;;False
+351525772;;False
+351525773;;False
+351525780;;False
+351525782;;False
+166973017;Estrada da Circunvalação;False
+206867054;Estrada da Circunvalação;False
+209633323;Estrada da Circunvalação;False
+166973018;Estrada da Circunvalação;False
+29035150;Estrada da Circunvalação;False
+212708425;Estrada da Circunvalação;False
+126568160;Travessa de Gonçalo Mendes da Maia;True
+160379536;Urgência Adultos;True
+160379534;Urgência Adultos;True
+160379537;Urgência Neonatologia;True
+160379545;Urgência Pediatria;True
+160379547;Urgência Pediatria;True
+41380172;;True
+367461723;Autoestrada de Entre-Douro-e-Minho;False
+367461725;;False
+367464148;Autoestrada de Entre-Douro-e-Minho;False
+367461722;Autoestrada de Entre-Douro-e-Minho;False
+367477467;Autoestrada de Entre-Douro-e-Minho;False
+367477466;Autoestrada de Entre-Douro-e-Minho;False
+367477465;Autoestrada de Entre-Douro-e-Minho;False
+367477469;Autoestrada de Entre-Douro-e-Minho;False
+367477471;Autoestrada de Entre-Douro-e-Minho;False
+367477472;Autoestrada de Entre-Douro-e-Minho;False
+367522279;Autoestrada de Entre-Douro-e-Minho;False
+367477464;Autoestrada de Entre-Douro-e-Minho;False
+367477473;Autoestrada de Entre-Douro-e-Minho;False
+367477470;Autoestrada de Entre-Douro-e-Minho;False
+367477474;Autoestrada de Entre-Douro-e-Minho;False
+367477475;Autoestrada de Entre-Douro-e-Minho;False
+367477476;Autoestrada de Entre-Douro-e-Minho;False
+367477477;;False
+4306660;;False
+367461726;;False
+4306658;;False
+406682433;;False

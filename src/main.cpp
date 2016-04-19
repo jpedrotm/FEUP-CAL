@@ -1,11 +1,13 @@
 
 #include "Interface.h"
+#include "ReaderFiles.h"
 
 using namespace std;
 
 int main() {
-  Interface I = Interface();
-  I.displayMenu();
+
+	ReaderFiles r=ReaderFiles();
+	r.readFileNameNodes();
 
   return 0;
 }
