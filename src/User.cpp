@@ -1,17 +1,17 @@
 #include "User.h"
 
 using namespace std;
-User::User(string name, int age, Adress adress, Trip trip) {
+User::User(string name, int age, Adress initAdress, Adress destAdress) {
   this->name = name;
   this->age = age;
-  this->adress = adress;
-  this->trip = trip;
+  this->initAdress = initAdress;
+  this->destAdress = destAdress;
 }
 
-User::User(string name, int age, Adress adress) {
+User::User(string name, int age, Adress initAdress) {
   this->name = name;
   this->age = age;
-  this->adress = adress;
+  this->initAdress = initAdress;
 }
 
 User::User(string name,int age){
@@ -24,9 +24,9 @@ string User::getName() { return name; }
 
 int User::getAge() { return age; }
 
-Adress User::getUserAdress() { return adress; }
+Adress User::getUserAdress() { return initAdress; }
 
-Trip User::getUserTrip() { return trip; }
+Adress User::getUserDestination() { return destAdress; }
 
 //------------------------------------------------------------------------------------------------
-void User::printUserAdress() { adress.printAdress(); }
+void User::printUserAdress() { initAdress.printAdress(); }

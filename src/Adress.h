@@ -2,23 +2,21 @@
 #define SRC_ADRESS_H_
 
 #include <iostream>
-#include <string>
+
+#include "Node.h"
+#include "Road.h"
 
 using namespace std;
 
 class Adress {
-  string street;
-  string local;
-  int lat, lon;
-
+	Node local;
+	Road street;
 public:
-  Adress(){};
-  Adress(string street, string local, int x, int y);
+	Adress(){};
+	Adress(Node local,Road street);
   //--------------------------------------------------------------------------------------------------------
-  string getStreet();
-  string getLocal();
-  int getLatitude();
-  int getLongitude();
+  Road getStreet();
+  Node getLocal();
   //--------------------------------------------------------------------------------------------------------
   void printAdress();
 };

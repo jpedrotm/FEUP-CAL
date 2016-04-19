@@ -125,3 +125,15 @@ void ReaderFiles::readFileNameRelation(){
 	}
 }
 
+vector<Node> ReaderFiles::getNodes() const{
+	return nodes;
+}
+
+vector<Road> ReaderFiles::getRoads() const{
+	return roads;
+}
+
+vector<Relation> ReaderFiles::getRelations() const{
+	return relations;
+}
+

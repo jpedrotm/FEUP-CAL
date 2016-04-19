@@ -10,6 +10,7 @@ class Road{
 	string name;
 	bool isTwoWays;
 public:
+	Road(){};
 	Road(unsigned long id,string name,bool isTwoWays);
 	unsigned long getID() const;
 	string getName() const;

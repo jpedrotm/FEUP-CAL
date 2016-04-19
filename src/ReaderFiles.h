@@ -23,6 +23,9 @@ public:
 	void readFileNameNodes();
 	void readFileNameRoads();
 	void readFileNameRelation();
+	vector<Node> getNodes() const;
+	vector<Road> getRoads() const;
+	vector<Relation> getRelations() const;
 
 };
 
