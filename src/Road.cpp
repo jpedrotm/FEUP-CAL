@@ -1,5 +1,9 @@
 #include "Road.h"
 
+Road::Road(unsigned long id){
+	this->id=id;
+}
+
 Road::Road(unsigned long id,string name,bool isTwoWays){
 	this->id=id;
 	this->name=name;
@@ -17,5 +21,3 @@ string Road::getName() const{
 bool Road::getIsTwoWays() const{
 	return isTwoWays;
 }
-
-

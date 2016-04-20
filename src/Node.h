@@ -2,6 +2,7 @@
 #define SRC_NODE_H_
 
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -12,11 +13,14 @@ class Node{
 	double z;
 public:
 	Node(){};
+	Node(unsigned long id);
 	Node(unsigned long id,double x,double y,double z);
 	unsigned long getID() const;
 	double getX() const;
 	double getY() const;
 	double getZ() const;
+	bool operator==(const Node &n) const{return this->id==n.getID();};
+	double distance(Node &n);
 };
 
 

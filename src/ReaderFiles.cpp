@@ -1,6 +1,10 @@
 #include "ReaderFiles.h"
 
-ReaderFiles::ReaderFiles(){}
+ReaderFiles::ReaderFiles(){
+	readFileNameNodes();
+	readFileNameRoads();
+	readFileNameRelation();
+}
 
 void ReaderFiles::readFileNameNodes(){
 
@@ -59,12 +63,8 @@ void ReaderFiles::readFileNameRoads(){
 				if(line=="\n")
 					break;
 
-				stringstream ss;
+				myfile >> roadID >> trash;
 
-				ss.str(line);
-
-				ss >> roadID >> trash;
-				getline(myfile,lineTrash,';');
 				getline(myfile,roadName,';');
 				getline(myfile,twoWaysName,'\n');
 
