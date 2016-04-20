@@ -10,7 +10,7 @@
 #include <list>
 
 
-#define DOUBLE_INFINITY 99999
+#define DOUBLE_INFINITY 99999.9
 using namespace std;
 
 
@@ -29,7 +29,7 @@ public:
 	friend class Graph<T,A>;
 	bool removeEdgeTo(Vertex<T,A> *d);
 	T getInfo() const;
-	unsigned long getDist() const;
+	double getDist() const;
 	Vertex* path;
 
 };
@@ -51,7 +51,7 @@ T Vertex<T,A>::getInfo() const {
 }
 
 template <class T,class A>
-unsigned long Vertex<T,A>::getDist() const{
+double Vertex<T,A>::getDist() const{
 	return dist;
 }
 
@@ -225,7 +225,7 @@ void Graph<T,A>::dijkstraShortestPath(const T &s) {
 	}
 
 	Vertex<T,A>* v = getVertex(s);
-	v->dist = 0;
+	v->dist = 0.0;
 
 	vector< Vertex<T,A>* > pq;
 	pq.push_back(v);
@@ -247,9 +247,13 @@ void Graph<T,A>::dijkstraShortestPath(const T &s) {
 			cout << "peso da aresta " << v->adj[i].weight << endl;
 			if(v->dist + v->adj[i].weight < w->dist ) {
 
+				cout << "V DIST" << v->dist;
+				cout << "V ADD  DISTT "  << v->adj[i].weight << endl;;
 
-
+				cout << w ->dist << endl;
 				w->dist = v->dist + v->adj[i].weight;
+
+				cout << w ->dist << endl;
 				w->path = v;
 
 				//se j� estiver na lista, apenas a actualiza

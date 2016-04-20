@@ -12,6 +12,8 @@ RideCenter::RideCenter(ReaderFiles &r) {
 	typename vector<Relation>::iterator it = rels.begin();
 	typename vector<Relation>::iterator ite = rels.end();
 
+
+	cout <<"DIST" <<endl;
 	for (; it != ite; it++) {
 
 		typename vector<Road>::iterator itRoad;
@@ -27,6 +29,7 @@ RideCenter::RideCenter(ReaderFiles &r) {
 
 		double dist = itNode1->distance(*itNode2);
 
+		cout << dist << endl;
 		if (itRoad->getIsTwoWays()) {
 			graph.addEdge(*itNode1, *itNode2, *itRoad, dist);
 			graph.addEdge(*itNode2, *itNode1, *itRoad, dist);
@@ -45,6 +48,9 @@ void RideCenter::printGraph() const {
 	}
 }
 
+
+ /*
+  * TIVE DE ALTERAR A CLASSE NODE
 vector<User> RideCenter::in_elipse(User U, Interface I) {
 	Node foco1 = U.getUserAdress().getLocal();
 	Node foco2 = U.getUserDestination().getLocal();
@@ -77,7 +83,7 @@ vector<User> RideCenter::in_elipse(User U, Interface I) {
 
 	return in;
 }
-
+*/
 
 void RideCenter::centerGraph(Node T){
 	graph.dijkstraShortestPath(T);

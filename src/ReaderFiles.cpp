@@ -13,38 +13,43 @@ void ReaderFiles::readFileNameNodes(){
 	if(myfile.is_open())
 	{
 		string line;
-		char trash;
+
 		unsigned long nodeID;
-		int lat_degrees,lon_degrees,lat_rad,lon_rad;
-		while(getline(myfile,line))
+		double lat_rad,lon_rad;
+		char delim = ';';
+		while(!myfile.eof())
 		{
-			if(line=="\n")
-				break;
 
 			stringstream ss;
 
+			getline(myfile,line,delim);
 			ss.str(line);
+			ss >> nodeID;
 
-			ss >> nodeID >> trash;
-			ss >> lat_degrees >> trash;
-			ss >> lon_degrees >> trash;
-			ss >> lat_rad >> trash;
+			getline(myfile,line,delim);
+
+			getline(myfile,line,delim);
+
+			getline(myfile,line,delim);
+			ss.clear();
+			ss.str(line);
+			ss >> lat_rad ;
+
+			getline(myfile,line);
+			ss.clear();
+			ss.str(line);
 			ss >> lon_rad;
 
-			double x = 6371000 * cos(lat_rad) * cos(lon_rad);
-			double y = 6371000 * cos(lat_rad) * sin(lon_rad);
-			double z = 6371000 * cos(lat_rad);
-
-			nodes.push_back(Node(nodeID,x,y,z));
+			nodes.push_back(Node(nodeID,lat_rad,lon_rad));
 		}
 	}
 
 	myfile.close();
-
-	for(unsigned int i=0;i<nodes.size();i++)
+	cout <<"NODES" << endl;
+/*	for(unsigned int i=0;i<nodes.size();i++)
 	{
-		cout << nodes[i].getID() << endl;
-	}
+	cout << nodes[i].getID() << "|" << nodes[i].getLat() << "|" << nodes[i].getLog() << endl;
+	}*/
 }
 
 void ReaderFiles::readFileNameRoads(){
