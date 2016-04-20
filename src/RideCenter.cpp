@@ -49,41 +49,48 @@ void RideCenter::printGraph() const {
 }
 
 
- /*
-  * TIVE DE ALTERAR A CLASSE NODE
+
 vector<User> RideCenter::in_elipse(User U, Interface I) {
+
 	Node foco1 = U.getUserAdress().getLocal();
 	Node foco2 = U.getUserDestination().getLocal();
 	vector<User> in;
 
-	double centroX = (foco1.getX() + foco2.getX()) / 2;
-	double centroY = (foco1.getY() + foco2.getY()) / 2;
+	double centroX = (foco1.getLat() + foco2.getLat()) / 2;
+	double centroY = (foco1.getLog() + foco2.getLog()) / 2;
 
 	Node centro_elipse = Node(centroX, centroY);
-	double dx = foco1.getX() - centroX;
-	double dy = foco1.getY() - centroY;
+	double dx = foco1.getLat() - centroX;
+	double dy = foco1.getLog() - centroY;
 
 	double c = sqrt(pow(dx, 2) + pow(dy, 2));
 	double a = c + DISTACIA_FOCAL;
-	double b = sqrt(pow(a, 2) + pow(b, 2));
 
-	double x, y, primeiro_arg, segundo_arg;
+	double x, y, d_f1, d_f2,comparador;
+	comparador = a + c + (a - c); //este valor é a distancia de um ponto da elipse a ambos os focos
 
 	for (int i = 0; i < I.getUsers().size(); i++) {
 
-		x = I.getUsers()[i].getUserAdress().getLocal().getX();
-		y = I.getUsers()[i].getUserAdress().getLocal().getY();
+		x = I.getUsers()[i].getUserAdress().getLocal().getLat();
+		y = I.getUsers()[i].getUserAdress().getLocal().getLog();
 
-		primeiro_arg = pow(x - centroX, 2) / pow(a, 2);
-		segundo_arg = pow(y - centroY, 2) / pow(b, 2);
+		dx = x - foco1.getLat();
+		dy = y - foco1.getLog();
+		d_f1 = sqrt(pow(dx,2)+ pow(dy,2));//distacia ao primeiro foco
 
-		if ((primeiro_arg + segundo_arg) <= 1)
+
+		dx = x - foco2.getLat();
+		dy = y - foco2.getLog();
+		d_f2 = sqrt(pow(dx,2)+ pow(dy,2));//distancia ao segundo foco
+
+
+		if(d_f1+d_f2 <= comparador)//se for menor ou igual esta contido na elipse
 			in.push_back(I.getUsers()[i]);
 	}
 
 	return in;
 }
-*/
+
 
 void RideCenter::centerGraph(Node T){
 	graph.dijkstraShortestPath(T);
