@@ -6,7 +6,11 @@
 
 #include <vector>
 #include <queue>
+#include <iostream>
+#include <list>
+
 using namespace std;
+
 
 template <class T,class A> class Edge;
 template <class T,class A> class Graph;
@@ -16,11 +20,23 @@ class Vertex {
 	T info;
 	vector<Edge<T,A>  > adj;
 	bool visited;
+	double dist;
+	bool processing;
 public:
 	Vertex(T in);
 	friend class Graph<T,A>;
 	bool removeEdgeTo(Vertex<T,A> *d);
 	T getInfo() const;
+	unsigned long getDist() const;
+	Vertex* path;
+
+};
+
+template <class T, class A>
+struct vertex_greater_than {
+    bool operator()(Vertex<T,A> * a, Vertex<T,A> * b) const {
+        return a->getDist() > b->getDist();
+    }
 };
 
 
@@ -28,9 +44,15 @@ template <class T,class A>
 Vertex<T,A>::Vertex(T in): info(in), visited(false){}
 
 template<class T,class A>
-T Vertex<T,A>::getInfo() const{
+T Vertex<T,A>::getInfo() const {
 	return info;
 }
+
+template <class T,class A>
+unsigned long Vertex<T,A>::getDist() const{
+	return dist;
+}
+
 
 
 template <class T,class A>
@@ -57,6 +79,11 @@ public:
 	bool removeVertex(const T &in);
 	bool addEdge(const T &sourc, const T &dest,A info, double w);
 	bool removeEdge(const T &sourc, const T &dest);
+
+
+	vector<Vertex<T,A> *> getPath(const T &origin, const T &dest) const;
+Vertex<T , A> * getVertex(const T &v) const;
+	void dijkstraShortestPath(const T &s);
 };
 
 template <class T,class A>
@@ -177,6 +204,96 @@ bool Graph<T,A>::removeEdge(const T &sourc, const T &dest){
 	}
 
 	return false;
+}
+
+template <class T, class A>
+Vertex<T,A>* Graph<T,A>::getVertex(const T &v) const{
+	for(unsigned int i = 0; i < vertexSet.size(); i++)
+			if (vertexSet[i]->info == v) return vertexSet[i];
+		return NULL;
+}
+
+template<class T, class A>
+void Graph<T,A>::dijkstraShortestPath(const T &s) {
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++) {
+		vertexSet[i]->path = NULL;
+		vertexSet[i]->dist = DOUBLE_INFINITY;
+		vertexSet[i]->processing = false;
+	}
+
+	Vertex<T,A>* v = getVertex(s);
+	v->dist = 0;
+
+	vector< Vertex<T,A>* > pq;
+	pq.push_back(v);
+
+	make_heap(pq.begin(), pq.end());
+
+
+	while( !pq.empty() ) {
+
+
+		cout << "stack: " <<  pq.size() << endl;
+		cout << "arestas: " <<  pq.front()->adj.size() << endl;
+		v = pq.front();
+		pop_heap(pq.begin(), pq.end());
+		pq.pop_back();
+
+		for(unsigned int i = 0; i < v->adj.size(); i++) {
+			Vertex<T,A>* w = v->adj[i].dest;
+			cout << "peso da aresta " << v->adj[i].weight << endl;
+			if(v->dist + v->adj[i].weight < w->dist ) {
+
+
+
+				w->dist = v->dist + v->adj[i].weight;
+				w->path = v;
+
+				//se j� estiver na lista, apenas a actualiza
+				if(!w->processing)
+				{
+					w->processing = true;
+					pq.push_back(w);
+				}
+
+				make_heap (pq.begin(),pq.end(),vertex_greater_than<T,A>());
+			}
+		}
+	}
+
+	cout<< "BUILD DIJS" << endl;
+	for(int i = 0; i < vertexSet.size(); i++)
+	{
+
+
+		cout <<" id " << vertexSet[i]->info.getID() << " dist " << vertexSet[i]->dist << endl;
+	}
+}
+
+
+
+
+template<class T, class A>
+vector<Vertex<T,A > *> Graph<T,A>::getPath(const T &origin, const T &dest) const{
+
+	list<Vertex<T,A> * > buffer;
+	Vertex<T,A>* v = getVertex(dest);
+
+	buffer.push_front(v);
+	while ( v->path != NULL && !( v->path->info == origin)) {
+		v = v->path;
+		buffer.push_front(v);
+	}
+	if( v->path != NULL )
+		buffer.push_front(v);
+
+	vector< Vertex<T,A> *> res;
+	while( !buffer.empty() ) {
+		res.push_back( buffer.front() );
+		buffer.pop_front();
+	}
+	return res;
 }
 
 #endif
