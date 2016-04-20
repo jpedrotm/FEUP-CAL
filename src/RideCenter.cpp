@@ -78,3 +78,31 @@ vector<User> RideCenter::in_elipse(User U, Interface I) {
 	return in;
 }
 
+
+void RideCenter::centerGraph(Node T){
+	graph.dijkstraShortestPath(T);
+}
+void RideCenter::getPath(const Node &Sourc,const  Node &Dest) const {
+	std::vector<Vertex<Node,Road> *> path = graph.getPath(Sourc,Dest);
+
+	for(unsigned int i = 0;i < path.size() ;i++){
+		cout << "i : " << i << " node id: " << path[i]->getInfo().getID() << " Dist: ";
+		cout << path[i]->getDist() << endl;
+	}
+}
+
+Node RideCenter::FindNode(unsigned long id){
+	vector<Vertex<Node,Road> *>:: iterator it = graph.getVertexSet().begin();
+	vector<Vertex<Node,Road> *>:: iterator ite = graph.getVertexSet().end();
+
+	while(it != ite)
+	{
+		if((*it)->getInfo().getID() == id)
+			return (*it)->getInfo();
+		it++;
+	}
+
+
+	return NULL;
+}
+

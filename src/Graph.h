@@ -9,6 +9,8 @@
 #include <iostream>
 #include <list>
 
+
+#define DOUBLE_INFINITY 99999
 using namespace std;
 
 

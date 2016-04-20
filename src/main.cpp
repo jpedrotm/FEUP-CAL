@@ -11,7 +11,19 @@ int main() {
 
 	RideCenter center=RideCenter(r);
 
+
+	cout << "PRINT GRAPH" << endl;
 	center.printGraph();
+
+
+	cout << "DISTRAK" << endl;
+
+	Node  temp = center.FindNode(1110698243);
+	Node temp2 = center.FindNode(1110698260);
+
+	center.centerGraph(temp);
+	center.getPath(temp,temp2);
 
   return 0;
 }
+

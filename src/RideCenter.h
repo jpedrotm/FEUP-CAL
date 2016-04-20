@@ -15,6 +15,11 @@ public:
 	void printGraph() const;
 	vector<User> in_elipse(User U,Interface I);
 
+
+	void centerGraph(Node T);
+		void getPath(const Node &Sourc,const Node &Dest) const;
+		Node FindNode(unsigned long id);
+
 };
 
 
