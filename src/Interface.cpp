@@ -83,3 +83,14 @@ void Interface::newUser(){
 
 	displayMenu();
 }
+
+vector<User> Interface::getUsers()
+{
+	vector<User> U;
+
+	for(int i=0; i < users.size(); i++)
+	{
+		U.push_back(users[i]);
+	}
+	return U;
+}

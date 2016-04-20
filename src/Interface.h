@@ -17,6 +17,8 @@ public:
   void displayMenu();
   void displayUsers();
   void newUser();
+  vector<User> getUsers();
+
 };
 
 #endif

@@ -4,6 +4,8 @@ Node::Node(unsigned long id): id(id){}
 
 Node::Node(unsigned long id,double x,double y,double z):id(id), x(x),y(y),z(z){}
 
+Node::Node(double x,double y): x(x),y(y){}
+
 unsigned long Node::getID() const{
 	return id;
 }

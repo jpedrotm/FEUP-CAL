@@ -15,6 +15,7 @@ public:
 	Node(){};
 	Node(unsigned long id);
 	Node(unsigned long id,double x,double y,double z);
+	Node(double x,double y);
 	unsigned long getID() const;
 	double getX() const;
 	double getY() const;
