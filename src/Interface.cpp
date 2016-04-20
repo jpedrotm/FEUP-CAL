@@ -78,7 +78,8 @@ void Interface::newUser(){
 	cout << "What is the ID of your Adress: ";
 	cin >> ID;
 
-	users.push_back(User(name,age));
+	users.push_back(User(name,age));//acho que deviamos ja inserir o inicio e destino do user ou então inserir
+	//noutra funçao pois vai  dar erro quando tentarmos fazer o print do user...nao existe inicio do user logo vai merdar--lázaro
 
 	displayMenu();
 }

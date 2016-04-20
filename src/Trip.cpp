@@ -8,8 +8,14 @@ Trip::Trip(Adress adress, string hDeparture, string hArrive) {
 }
 
 //-------------------------------------------------------------------------------
-Adress Trip::getTripAdress() { return adress; }
+Adress Trip::getTripAdress() {
+	return adress;
+}
 
-string Trip::getHDeparture() { return hDeparture; }
+string Trip::getHDeparture() {
+	return hDeparture;
+}
 
-string Trip::getHArrive() { return hArrive; }
+string Trip::getHArrive() {
+	return hArrive;
+}

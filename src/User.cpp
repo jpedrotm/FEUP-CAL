@@ -20,13 +20,23 @@ User::User(string name,int age){
 }
 
 //------------------------------------------------------------------------------------------------
-string User::getName() { return name; }
+string User::getName() {
+	return name;
+}
 
-int User::getAge() { return age; }
+int User::getAge() {
+	return age;
+}
 
-Adress User::getUserAdress() { return initAdress; }
+Adress User::getUserAdress() {
+	return initAdress;
+}
 
-Adress User::getUserDestination() { return destAdress; }
+Adress User::getUserDestination() {
+	return destAdress;
+}
 
 //------------------------------------------------------------------------------------------------
-void User::printUserAdress() { initAdress.printAdress(); }
+void User::printUserAdress() {
+	initAdress.printAdress();
+}

@@ -6,9 +6,13 @@ Adress::Adress(Node local,Road street) {
 	this->street=street;
 }
 
-Road Adress::getStreet() { return street; }
+Road Adress::getStreet() {
+	return street;
+}
 
-Node Adress::getLocal() { return local; }
+Node Adress::getLocal() {
+	return local;
+}
 
 void Adress::printAdress() {
 	cout << "Local node: " << local.getID() << endl;
