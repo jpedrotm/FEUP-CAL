@@ -15,11 +15,12 @@ public:
 	void printGraph() const;
 	vector<User> in_elipse(User U,Interface I);
 
-
+	//VAI PARA PRIVATE MUDAR DEPOIS
 	void centerGraph(Node T);
-		void getPath(const Node &Sourc,const Node &Dest) const;
-		Node FindNode(unsigned long id);
-
+	vector<Vertex<Node,Road> *> getPath(const Node &Sourc,const Node &Dest, double &dist) ;
+	//
+	Node FindNode(unsigned long id);
+	vector< Vertex<Node,Road> > BestPath(const Node &Sourc, const Node & Dest,const vector <Node> InterestPoints, unsigned int passenger_capacity);
 };
 
 

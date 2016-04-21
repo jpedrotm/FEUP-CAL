@@ -13,7 +13,7 @@ RideCenter::RideCenter(ReaderFiles &r) {
 	typename vector<Relation>::iterator ite = rels.end();
 
 
-	cout <<"DIST" <<endl;
+	//cout <<"DIST" <<endl;
 	for (; it != ite; it++) {
 
 		typename vector<Road>::iterator itRoad;
@@ -29,7 +29,7 @@ RideCenter::RideCenter(ReaderFiles &r) {
 
 		double dist = itNode1->distance(*itNode2);
 
-		cout << dist << endl;
+		//	cout << dist << endl;
 		if (itRoad->getIsTwoWays()) {
 			graph.addEdge(*itNode1, *itNode2, *itRoad, dist);
 			graph.addEdge(*itNode2, *itNode1, *itRoad, dist);
@@ -95,13 +95,19 @@ vector<User> RideCenter::in_elipse(User U, Interface I) {
 void RideCenter::centerGraph(Node T){
 	graph.dijkstraShortestPath(T);
 }
-void RideCenter::getPath(const Node &Sourc,const  Node &Dest) const {
+vector<Vertex<Node,Road> *> RideCenter::getPath(const Node &Sourc,const  Node &Dest, double &dist)  {
 	std::vector<Vertex<Node,Road> *> path = graph.getPath(Sourc,Dest);
 
-	for(unsigned int i = 0;i < path.size() ;i++){
+	/*	for(unsigned int i = 0;i < path.size() ;i++){
 		cout << "i : " << i << " node id: " << path[i]->getInfo().getID() << " Dist: ";
 		cout << path[i]->getDist() << endl;
-	}
+	}*/
+
+	vector< Vertex<Node,Road>* >::iterator it = path.end();
+	--it;
+	dist = (*it)->getDist();
+
+	return path;
 }
 
 Node RideCenter::FindNode(unsigned long id){
@@ -118,4 +124,162 @@ Node RideCenter::FindNode(unsigned long id){
 
 	return NULL;
 }
+
+
+vector< Vertex<Node,Road> > RideCenter::BestPath(const Node &Sourc, const Node & Dest,const vector <Node> InterestPoints, unsigned int passenger_capacity)// Nao tem em conta lotação ainda
+{
+	unsigned int total_points =InterestPoints.size()+2;
+
+	double dist[total_points - 1][total_points];
+
+
+
+	vector <Node> points;
+	vector< vector< Vertex<Node,Road>* > >  paths;
+
+	//BUILD POINTS SEQUENCE
+	points.push_back(Sourc);
+	for(unsigned int i = 0; i < InterestPoints.size(); i++)
+	{
+		points.push_back(InterestPoints[i]);
+	}
+
+	points.push_back(Dest);
+
+	// CALCULATE DIST AND PATHS
+
+
+	for(unsigned int i = 0; i+1 < points.size(); i++)// DONT BUILD PATHS FROM END POINT TO OTHER POINTS
+	{
+		centerGraph(points[i]);
+		for(unsigned int t = 0; t < points.size(); t++)
+		{
+			if(i == t) {
+				dist[i][t] = 0;
+				vector< Vertex<Node,Road>* > a;
+				paths.push_back(a);
+				cout <<"dist " <<  dist[i][t] << endl;
+				continue;
+			}
+			double distant;
+			paths.push_back(getPath(points[i],points[t],distant));
+			//cout << "distant " << distant << endl;
+			dist[i][t] = distant;
+			cout << "distant " << " i: "<< i << "t: " << t << " " << dist[i][t] << endl;
+		}
+	}
+
+	///Nearest neighbour algorithm - TSP
+	/// greedy algorithm
+
+	int visited [points.size() - 1];
+	for(unsigned int i = 0; i < points.size() -1; i++)
+	{
+		visited[i] = 0;
+	}
+
+	unsigned int pos = 0;
+	double total_dist = 0;
+	bool allVisited  = false;
+
+	vector<int> index_order;
+	index_order.push_back(0);
+	cout << "TOTAL POINTS" << points.size()<<  endl;
+
+
+	while(!allVisited)
+	{	//cout << "inicio" << endl;
+
+		double min = 999.99;
+		int nextpos = points.size()-1;
+		for(unsigned int t = 0; t+1 < points.size(); t++)
+		{
+
+			if(dist[pos][t] < min && dist[pos][t] != 0)
+			{
+
+				if(visited[t] == 0){
+					//			cout << "entrou" << endl;
+					min = dist[pos][t];
+					nextpos = t;
+					cout << "troca"<< endl;
+				}
+
+			}
+		}
+		//
+
+		//	cout << "t" << nextpos <<endl;
+		visited[pos] = 1;
+		if(min != 999.99)
+			total_dist += min;
+		else
+			total_dist += dist[pos][nextpos];
+		pos = nextpos;
+		index_order.push_back(pos);
+
+		//	cout << "VISITED" << endl;
+		for(unsigned int i = 0; i < points.size() - 1 ; i  ++)
+		{
+
+
+			if(visited[i] == 0)
+			{
+				//		cout << i << " FALSE " << endl;
+				allVisited =  false;
+				break;
+			}
+			//		else cout << i << " True " << endl;
+		}
+
+		if(nextpos == points.size()-1) // WHEN CANT COVER ALL POINT ( EU POSSO EXPLICAR ISTO SE TIVEREM DUVIDAS ASK xD )
+		{
+			allVisited =  true;
+		}
+		if(allVisited == true)
+		{	//index_order.push_back(points.size()-1);
+			for(unsigned int t = 0; t < index_order.size(); t++)
+			{
+				cout << index_order[t] << endl;
+			}
+
+			cout << "TOTAL DIST " << total_dist << endl;
+		}
+
+		//cout << "nao sai" << endl;
+	}
+
+	//BUILD FINAL PATH
+	cout << "AQUIdasdasd" << endl;
+	vector< Vertex<Node,Road> *>::iterator it1 = paths[2].begin();
+	vector< Vertex<Node,Road> *>::iterator ite1 = paths[2].end();
+
+	while(it1 != ite1){
+				cout <<(*it1)->getInfo().getID()<< endl;
+				it1++;
+			}
+
+	vector< Vertex<Node,Road> > final;
+
+	cout << "AQUI" << endl;
+
+	for(unsigned int i = 0; i +1 <  index_order.size();i++){
+
+		int path_index = index_order[i]*(points.size())+index_order[i+1];
+		cout << "path " << path_index << endl;
+		vector< Vertex<Node,Road> *>::iterator it = paths[path_index].begin();
+		vector< Vertex<Node,Road> *>::iterator ite = paths[path_index].end();
+		if(i > 0)
+		it++;
+		while(it != ite){
+			//cout <<"ciclo" << endl;
+			final.push_back(*(*it));
+			it++;
+		}
+	}
+	cout <<  "saiu" << endl;
+
+return final;
+}
+
 

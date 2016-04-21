@@ -45,7 +45,7 @@ void ReaderFiles::readFileNameNodes(){
 	}
 
 	myfile.close();
-	cout <<"NODES" << endl;
+	//cout <<"NODES" << endl;
 /*	for(unsigned int i=0;i<nodes.size();i++)
 	{
 	cout << nodes[i].getID() << "|" << nodes[i].getLat() << "|" << nodes[i].getLog() << endl;
@@ -87,11 +87,11 @@ void ReaderFiles::readFileNameRoads(){
 		}
 
 		myfile.close();
-
+/*
 		for(unsigned int i=0;i<roads.size();i++)
 		{
 			cout << roads[i].getID() << " | " << roads[i].getName() << " | " << roads[i].getIsTwoWays() << endl;
-		}
+		}*/
 
 }
 
@@ -123,11 +123,11 @@ void ReaderFiles::readFileNameRelation(){
 	}
 
 	myfile.close();
-
+/*
 	for(unsigned int i=0;i<relations.size();i++)
 	{
 		cout << relations[i].getRoadID() << " | " << relations[i].getNode1ID() << " | " << relations[i].getNode2ID() << endl;
-	}
+	}*/
 }
 
 vector<Node> ReaderFiles::getNodes() const{

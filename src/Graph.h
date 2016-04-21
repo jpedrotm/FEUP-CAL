@@ -236,24 +236,24 @@ void Graph<T,A>::dijkstraShortestPath(const T &s) {
 	while( !pq.empty() ) {
 
 
-		cout << "stack: " <<  pq.size() << endl;
-		cout << "arestas: " <<  pq.front()->adj.size() << endl;
+		//cout << "stack: " <<  pq.size() << endl;
+		//cout << "arestas: " <<  pq.front()->adj.size() << endl;
 		v = pq.front();
 		pop_heap(pq.begin(), pq.end());
 		pq.pop_back();
 
 		for(unsigned int i = 0; i < v->adj.size(); i++) {
 			Vertex<T,A>* w = v->adj[i].dest;
-			cout << "peso da aresta " << v->adj[i].weight << endl;
+			//cout << "peso da aresta " << v->adj[i].weight << endl;
 			if(v->dist + v->adj[i].weight < w->dist ) {
 
-				cout << "V DIST" << v->dist;
-				cout << "V ADD  DISTT "  << v->adj[i].weight << endl;;
+			//	cout << "V DIST" << v->dist;
+				//cout << "V ADD  DISTT "  << v->adj[i].weight << endl;;
 
-				cout << w ->dist << endl;
+				//cout << w ->dist << endl;
 				w->dist = v->dist + v->adj[i].weight;
 
-				cout << w ->dist << endl;
+				//cout << w ->dist << endl;
 				w->path = v;
 
 				//se j� estiver na lista, apenas a actualiza
@@ -268,13 +268,13 @@ void Graph<T,A>::dijkstraShortestPath(const T &s) {
 		}
 	}
 
-	cout<< "BUILD DIJS" << endl;
+	/*cout<< "BUILD DIJS" << endl;
 	for(int i = 0; i < vertexSet.size(); i++)
 	{
 
 
 		cout <<" id " << vertexSet[i]->info.getID() << " dist " << vertexSet[i]->dist << endl;
-	}
+	}*/
 }
 
 
@@ -292,7 +292,7 @@ vector<Vertex<T,A > *> Graph<T,A>::getPath(const T &origin, const T &dest) const
 		buffer.push_front(v);
 	}
 	if( v->path != NULL )
-		buffer.push_front(v);
+		buffer.push_front(getVertex(v->path->info));
 
 	vector< Vertex<T,A> *> res;
 	while( !buffer.empty() ) {
