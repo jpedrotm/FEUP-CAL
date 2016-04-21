@@ -18,7 +18,7 @@ class RideCenter{
 public:
 	RideCenter(ReaderFiles &r);
 	void printGraph() const;
-	vector<User> in_elipse(User U,Interface I);
+	vector<User> in_elipse(User U, vector<User> users);
 
 	//VAI PARA PRIVATE MUDAR DEPOIS
 	void centerGraph(Node T);

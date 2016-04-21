@@ -47,7 +47,7 @@ void RideCenter::printGraph() const {
 	}
 }
 
-vector<User> RideCenter::in_elipse(User U, Interface I) {
+vector<User> RideCenter::in_elipse(User U,  vector<User> users) {
 
 	Node foco1 = U.getUserAdress().getLocal();
 	Node foco2 = U.getUserDestination().getLocal();
@@ -67,10 +67,10 @@ vector<User> RideCenter::in_elipse(User U, Interface I) {
 	double x, y, d_f1, d_f2, comparador;
 	comparador = a + c + (a - c); //este valor é a distancia de um ponto da elipse a ambos os focos
 
-	for (int i = 0; i < I.getUsers().size(); i++) {
+	for (int i = 0; i < users.size(); i++) {
 
-		x = I.getUsers()[i].getUserAdress().getLocal().getLat();
-		y = I.getUsers()[i].getUserAdress().getLocal().getLog();
+		x = users[i].getUserAdress().getLocal().getLat();
+		y = users[i].getUserAdress().getLocal().getLog();
 
 		dx = x - foco1.getLat();
 		dy = y - foco1.getLog();
@@ -81,7 +81,7 @@ vector<User> RideCenter::in_elipse(User U, Interface I) {
 		d_f2 = sqrt(pow(dx, 2) + pow(dy, 2)); //distancia ao segundo foco
 
 		if (d_f1 + d_f2 <= comparador) //se for menor ou igual esta contido na elipse
-			in.push_back(I.getUsers()[i]);
+			in.push_back(users[i]);
 	}
 
 	return in;
