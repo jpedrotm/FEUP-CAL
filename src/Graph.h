@@ -101,6 +101,8 @@ public:
 	vector<Vertex<T, A> *> getPath(const T &origin, const T &dest) const;
 	Vertex<T, A> * getVertex(const T &v) const;
 	void dijkstraShortestPath(const T &s);
+
+	vector<T> bfs(Vertex<T,A> *v) const;
 };
 
 template<class T, class A>
@@ -302,4 +304,26 @@ vector<Vertex<T, A> *> Graph<T, A>::getPath(const T &origin,
 	return res;
 }
 
+template <class T, class A>
+vector<T> Graph<T,A>::bfs(Vertex<T,A> *v) const {
+	vector<T> res;
+	queue<Vertex<T,A> *> q;
+	q.push(v);
+	v->visited = true;
+	while (!q.empty()) {
+		Vertex<T,A> *v1 = q.front();
+		q.pop();
+		res.push_back(v1->info);
+		typename vector<Edge<T,A> >::iterator it=v1->adj.begin();
+		typename vector<Edge<T,A> >::iterator ite=v1->adj.end();
+		for (; it!=ite; it++) {
+			Vertex<T,A> *d = it->dest;
+			if (d->visited==false) {
+				d->visited=true;
+				q.push(d);
+			}
+		}
+	}
+	return res;
+}
 #endif
