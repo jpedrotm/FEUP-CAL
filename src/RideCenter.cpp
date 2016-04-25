@@ -49,7 +49,7 @@ void RideCenter::printGraph() const {
 
 vector<User> RideCenter::in_elipse(User U,  vector<User> users) {
 
-	Node foco1 = U.getUserAdress().getLocal();
+	/*Node foco1 = U.getUserAdress().getLocal();
 	Node foco2 = U.getUserDestination().getLocal();
 	vector<User> in;
 
@@ -84,7 +84,7 @@ vector<User> RideCenter::in_elipse(User U,  vector<User> users) {
 			in.push_back(users[i]);
 	}
 
-	return in;
+	return in;*/
 }
 
 void RideCenter::centerGraph(Node T) {
@@ -283,5 +283,55 @@ Adress* RideCenter::getAdress(Node N) const {
 	*A = Adress(N, street);
 
 	return A;
+}
+
+void RideCenter::displayGraph(vector< Vertex<Node,Road> > passNodes){
+	GraphViewer *gv = new GraphViewer(600, 600, false);
+
+	gv->createWindow(1200,1200);
+
+	gv->defineEdgeColor("blue");
+
+	gv->defineVertexColor("yellow");
+
+		typename vector<Relation>::iterator it = rels.begin();
+		typename vector<Relation>::iterator ite = rels.end();
+
+		//cout <<"DIST" <<endl;
+		for (; it != ite; it++) {
+
+			typename vector<Road>::iterator itRoad;
+			typename vector<Node>::iterator itNode1;
+			typename vector<Node>::iterator itNode2;
+
+			int x,y;
+
+			itRoad = find(roads.begin(), roads.end(), Road(it->getRoadID()));
+			itNode1 = find(nodes.begin(), nodes.end(), Node(it->getNode1ID()));
+			itNode2 = find(nodes.begin(), nodes.end(), Node(it->getNode2ID()));
+
+			x=floor(((itNode1->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
+			y=floor(((itNode1->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
+
+			cout << itNode1->getLonDeg() << endl;
+
+			x=floor(((itNode2->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
+			y=floor(((itNode2->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
+
+			gv->addNode(itNode2->getID(),x,y);
+
+			/*if (itRoad->getIsTwoWays()) {
+				gv->addEdge(itRoad->getID(),itNode1->getID(),itNode2->getID(),0);
+			} else {
+				gv->addEdge(itRoad->getID(),itNode1->getID(),itNode2->getID(),1);
+			}*/
+		}
+
+		for(unsigned int i=0;i<passNodes.size();i++)
+		{
+			gv->setVertexColor(passNodes[i].getInfo().getID(),"blue");
+		}
+
+		gv->rearrange();
 }
 

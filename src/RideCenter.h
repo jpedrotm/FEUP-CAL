@@ -8,6 +8,7 @@
 #include "User.h"
 #include "Interface.h"
 #include "Adress.h"
+#include "GraphViewer.h"
 
 
 class RideCenter{
@@ -15,6 +16,7 @@ class RideCenter{
 	vector<Relation> rels;
 	vector<Node> nodes;
 	vector<Road> roads;
+	ReaderFiles reader;
 public:
 	RideCenter(ReaderFiles &r);
 	void printGraph() const;
@@ -27,6 +29,7 @@ public:
 	Node FindNode(unsigned long id);
 	vector< Vertex<Node,Road> > BestPath(const Node &Sourc, const Node & Dest,const vector <Node> InterestPoints, unsigned int passenger_capacity);
 	Adress* getAdress(Node N)const;
+	void displayGraph(vector< Vertex<Node,Road> > passNodes);
 
 
 };

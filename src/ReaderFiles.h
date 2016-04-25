@@ -18,6 +18,7 @@ class ReaderFiles{
 	vector<Node> nodes;
 	vector<Road> roads;
 	vector<Relation> relations;
+	double minLat,maxLat,minLon,maxLon;
 public:
 	ReaderFiles();
 	void readFileNameNodes();
@@ -26,6 +27,11 @@ public:
 	vector<Node> getNodes() const;
 	vector<Road> getRoads() const;
 	vector<Relation> getRelations() const;
+	double getMinLat() const;
+	double getMaxLat() const;
+	double getMinLon() const;
+	double getMaxLon() const;
+	void updateLatsAndLons(double lat,double lon);
 
 };
 

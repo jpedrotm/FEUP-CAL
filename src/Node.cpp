@@ -6,28 +6,36 @@
 
 Node::Node(unsigned long id): id(id){}
 
-Node::Node(unsigned long id,double lat,double log):id(id), latitude(lat),longitude(log){}
+Node::Node(unsigned long id,double latR,double lonR,double latD,double lonD):id(id), latRad(latR),lonRad(lonR),latDeg(latD),lonDeg(lonD){}
 
-Node::Node(double lat,double log): latitude(lat),longitude(log){}
+Node::Node(double latR,double lonR): latRad(latR),lonRad(lonR){}
 
 unsigned long Node::getID() const{
 	return id;
 }
 
-double Node::getLat() const{
-	return latitude;
+double Node::getLatRad() const{
+	return latRad;
 }
 
-double Node::getLog() const{
-	return longitude;
+double Node::getLonRad() const{
+	return lonRad;
+}
+
+double Node::getLatDeg() const{
+	return latDeg;
+}
+
+double Node::getLonDeg() const{
+	return lonDeg;
 }
 
 
 double Node::distance(Node &n){
-	double dLat=(n.getLat()- latitude);
-	double dLon=(n.getLog() -longitude);
+	double dLat=(n.getLatRad()- latRad);
+	double dLon=(n.getLonRad() -lonRad);
 	double a = sin(dLat/2)*sin(dLat/2)+
-			cos(latitude)* cos(n.getLat())
+			cos(latRad)* cos(n.getLatRad())
 			*sin(dLon/2)*sin(dLon/2);
 	double c = 2 * atan2(sqrt(a),sqrt(1-a));
 	double d = EARTH_RAD * c;

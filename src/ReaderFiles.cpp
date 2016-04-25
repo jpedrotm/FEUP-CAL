@@ -14,42 +14,49 @@ void ReaderFiles::readFileNameNodes(){
 	{
 		string line;
 
+		char trash;
+
 		unsigned long nodeID;
-		double lat_rad,lon_rad;
-		char delim = ';';
-		while(!myfile.eof())
+		double lat_rad,lon_rad,lat_deg,lon_deg;
+
+		bool isFirstTime=true;
+
+		while(getline(myfile,line))
 		{
+
+			if(line=="\n")
+				break;
 
 			stringstream ss;
 
-			getline(myfile,line,delim);
 			ss.str(line);
-			ss >> nodeID;
-
-			getline(myfile,line,delim);
-
-			getline(myfile,line,delim);
-
-			getline(myfile,line,delim);
-			ss.clear();
-			ss.str(line);
-			ss >> lat_rad ;
-
-			getline(myfile,line);
-			ss.clear();
-			ss.str(line);
+			ss >> nodeID >> trash;
+			ss >> lat_deg >> trash;
+			ss >> lon_deg >> trash;
+			ss >> lat_rad >> trash;
 			ss >> lon_rad;
 
-			nodes.push_back(Node(nodeID,lat_rad,lon_rad));
+			if(isFirstTime)
+			{
+				minLat=lat_deg;
+				maxLat=lat_deg;
+				minLon=lon_deg;
+				maxLon=lon_deg;
+				isFirstTime=false;
+			}
+			else
+				updateLatsAndLons(lat_deg,lon_deg);
+
+
+			nodes.push_back(Node(nodeID,lat_rad,lon_rad,lat_deg,lon_deg));
 		}
 	}
 
+	cout << minLat << " | " << minLon << endl;
+	cout << maxLat << " | " << maxLon << endl;
+
 	myfile.close();
-	//cout <<"NODES" << endl;
-/*	for(unsigned int i=0;i<nodes.size();i++)
-	{
-	cout << nodes[i].getID() << "|" << nodes[i].getLat() << "|" << nodes[i].getLog() << endl;
-	}*/
+
 }
 
 void ReaderFiles::readFileNameRoads(){
@@ -87,11 +94,6 @@ void ReaderFiles::readFileNameRoads(){
 		}
 
 		myfile.close();
-/*
-		for(unsigned int i=0;i<roads.size();i++)
-		{
-			cout << roads[i].getID() << " | " << roads[i].getName() << " | " << roads[i].getIsTwoWays() << endl;
-		}*/
 
 }
 
@@ -123,11 +125,7 @@ void ReaderFiles::readFileNameRelation(){
 	}
 
 	myfile.close();
-/*
-	for(unsigned int i=0;i<relations.size();i++)
-	{
-		cout << relations[i].getRoadID() << " | " << relations[i].getNode1ID() << " | " << relations[i].getNode2ID() << endl;
-	}*/
+
 }
 
 vector<Node> ReaderFiles::getNodes() const{
@@ -140,5 +138,34 @@ vector<Road> ReaderFiles::getRoads() const{
 
 vector<Relation> ReaderFiles::getRelations() const{
 	return relations;
+}
+
+double ReaderFiles::getMinLat() const{
+	return minLat;
+}
+
+double ReaderFiles::getMaxLat() const{
+	return maxLat;
+}
+
+double ReaderFiles::getMinLon() const{
+	return minLon;
+}
+
+double ReaderFiles::getMaxLon() const{
+	return maxLon;
+}
+
+void ReaderFiles::updateLatsAndLons(double lat,double lon){
+
+	if(minLat>lat)
+		minLat=lat;
+	if(maxLat<lat)
+		maxLat=lat;
+	if(minLon>lon)
+		minLon=lon;
+	if(maxLon<lon)
+		maxLon=lon;
+
 }
 
