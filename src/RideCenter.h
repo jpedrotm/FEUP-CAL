@@ -6,7 +6,6 @@
 #include "Road.h"
 #include "ReaderFiles.h"
 #include "User.h"
-#include "Interface.h"
 #include "Adress.h"
 #include "GraphViewer.h"
 
@@ -18,6 +17,7 @@ class RideCenter{
 	vector<Road> roads;
 	ReaderFiles reader;
 public:
+	RideCenter(){};
 	RideCenter(ReaderFiles &r);
 	void printGraph() const;
 	vector<User> in_elipse(User U, vector<User> users);
@@ -30,10 +30,9 @@ public:
 	vector< Vertex<Node,Road> > BestPath(const Node &Sourc, const Node & Dest,const vector <Node> InterestPoints, unsigned int passenger_capacity);
 	Adress* getAdress(Node N)const;
 	void displayGraph(vector< Vertex<Node,Road> > passNodes);
+	Graph<Node,Road> getGraph() const;
 
-	bool SourcDestConected(Node dest, vector<Node> nodes);
-	bool TestALLNodesConected(Node Sourc, Node Dest, vector<Node> Interest_Points);
-	double getEdjeID(double id_sourc, double id_dest);
+
 };
 
 

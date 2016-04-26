@@ -9,9 +9,13 @@ int main() {
 
 	ReaderFiles r = ReaderFiles();
 
-	RideCenter center = RideCenter(r);
+	Interface cli=Interface(r);
 
-	//cout << "PRINT GRAPH" << endl;
+	cli.displayMenu();
+
+	//RideCenter center = RideCenter(r);
+
+	/*//cout << "PRINT GRAPH" << endl;
 	//center.printGraph();
 
 	cout << "DISTRAK" << endl;
@@ -44,7 +48,7 @@ int main() {
 	}
 
 	getchar();
-
+	*/
 	return 0;
 }
 

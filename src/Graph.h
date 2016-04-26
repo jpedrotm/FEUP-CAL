@@ -70,19 +70,16 @@ class Edge {
 	Vertex<T, A> * dest;
 	double weight;
 	A edgeInfo;
-	double id;
 public:
-	Edge(Vertex<T, A> *d, A info, double w,double ID);
+	Edge(Vertex<T, A> *d, A info, double w);
 	friend class Graph<T, A> ;
 	friend class Vertex<T, A> ;
 	A getEdgeInfo();
-	double getID() const;
-	Vertex< T,A > * getDest() const;
 };
 
 template<class T, class A>
-Edge<T, A>::Edge(Vertex<T, A> *d, A info, double w,double ID) :
-		dest(d), edgeInfo(info), weight(w), id(ID) {
+Edge<T, A>::Edge(Vertex<T, A> *d, A info, double w) :
+		dest(d), edgeInfo(info), weight(w) {
 }
 
 template<class T, class A>
@@ -90,15 +87,6 @@ A Edge<T, A>::getEdgeInfo() {
 	return edgeInfo;
 }
 
-template <class T, class A>
-double Edge<T,A>::getID() const
-{
-	return id;
-}
-template < class T, class A>
-Vertex< T,A > * Edge<T,A>::getDest() const{
-	return dest;
-}
 template<class T, class A>
 class Graph {
 	vector<Vertex<T, A> *> vertexSet;
@@ -107,14 +95,12 @@ public:
 	int getNumVertex() const;
 	bool addVertex(const T &in);
 	bool removeVertex(const T &in);
-	bool addEdge(const T &sourc, const T &dest, A info, double w,double id);
+	bool addEdge(const T &sourc, const T &dest, A info, double w);
 	bool removeEdge(const T &sourc, const T &dest);
 
 	vector<Vertex<T, A> *> getPath(const T &origin, const T &dest) const;
 	Vertex<T, A> * getVertex(const T &v) const;
 	void dijkstraShortestPath(const T &s);
-
-	vector<T> bfs(Vertex<T,A> *v) const;
 };
 
 template<class T, class A>
@@ -166,7 +152,7 @@ bool Graph<T, A>::removeVertex(const T &in) {
 }
 
 template<class T, class A>
-bool Graph<T, A>::addEdge(const T &sourc, const T &dest, A info, double w,double id) {
+bool Graph<T, A>::addEdge(const T &sourc, const T &dest, A info, double w) {
 
 	typename vector<Vertex<T, A> *>::iterator it = vertexSet.begin();
 	typename vector<Vertex<T, A> *>::iterator ite = vertexSet.end();
@@ -185,7 +171,7 @@ bool Graph<T, A>::addEdge(const T &sourc, const T &dest, A info, double w,double
 	}
 
 	if (count == 2) {
-		Edge<T, A> e = Edge<T, A>(vd, info, w,id);
+		Edge<T, A> e = Edge<T, A>(vd, info, w);
 		vp->adj.push_back(e);
 		return true;
 	}
@@ -316,26 +302,4 @@ vector<Vertex<T, A> *> Graph<T, A>::getPath(const T &origin,
 	return res;
 }
 
-template <class T, class A>
-vector<T> Graph<T,A>::bfs(Vertex<T,A> *v) const {
-	vector<T> res;
-	queue<Vertex<T,A> *> q;
-	q.push(v);
-	v->visited = true;
-	while (!q.empty()) {
-		Vertex<T,A> *v1 = q.front();
-		q.pop();
-		res.push_back(v1->info);
-		typename vector<Edge<T,A> >::iterator it=v1->adj.begin();
-		typename vector<Edge<T,A> >::iterator ite=v1->adj.end();
-		for (; it!=ite; it++) {
-			Vertex<T,A> *d = it->dest;
-			if (d->visited==false) {
-				d->visited=true;
-				q.push(d);
-			}
-		}
-	}
-	return res;
-}
 #endif

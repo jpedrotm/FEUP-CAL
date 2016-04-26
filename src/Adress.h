@@ -15,8 +15,10 @@ public:
 	Adress(){};
 	Adress(Node local,Road street);
   //--------------------------------------------------------------------------------------------------------
-  Road getStreet();
-  Node getLocal();
+  Road getStreet() const;
+  Node getLocal() const;
+  void setLocal(Node &n);
+  void setStreet(Road &r);
   //--------------------------------------------------------------------------------------------------------
   void printAdress();
 };

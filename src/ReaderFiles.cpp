@@ -52,9 +52,6 @@ void ReaderFiles::readFileNameNodes(){
 		}
 	}
 
-	cout << minLat << " | " << minLon << endl;
-	cout << maxLat << " | " << maxLon << endl;
-
 	myfile.close();
 
 }

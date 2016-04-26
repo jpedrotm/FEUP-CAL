@@ -6,12 +6,20 @@ Adress::Adress(Node local,Road street) {
 	this->street=street;
 }
 
-Road Adress::getStreet() {
+Road Adress::getStreet() const{
 	return street;
 }
 
-Node Adress::getLocal() {
+Node Adress::getLocal() const{
 	return local;
+}
+
+void Adress::setLocal(Node &n){
+	local=n;
+}
+
+void Adress::setStreet(Road &r){
+	street=r;
 }
 
 void Adress::printAdress() {
