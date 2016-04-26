@@ -13,6 +13,7 @@ RideCenter::RideCenter(ReaderFiles &r) {
 	typename vector<Relation>::iterator ite = rels.end();
 
 	//cout <<"DIST" <<endl;
+	unsigned int serial_N = 0;
 	for (; it != ite; it++) {
 
 		typename vector<Road>::iterator itRoad;
@@ -30,11 +31,13 @@ RideCenter::RideCenter(ReaderFiles &r) {
 
 		//	cout << dist << endl;
 		if (itRoad->getIsTwoWays()) {
-			graph.addEdge(*itNode1, *itNode2, *itRoad, dist);
-			graph.addEdge(*itNode2, *itNode1, *itRoad, dist);
+			graph.addEdge(*itNode1, *itNode2, *itRoad, dist,serial_N);
+			serial_N ++;
+			graph.addEdge(*itNode2, *itNode1, *itRoad, dist,serial_N);
 		} else {
-			graph.addEdge(*itNode1, *itNode2, *itRoad, dist);
+			graph.addEdge(*itNode1, *itNode2, *itRoad, dist,serial_N);
 		}
+		serial_N ++;
 	}
 }
 
@@ -49,7 +52,8 @@ void RideCenter::printGraph() const {
 
 vector<User> RideCenter::in_elipse(User U,  vector<User> users) {
 
-	/*Node foco1 = U.getUserAdress().getLocal();
+/*
+ * 	Node foco1 = U.getUserAdress().getLocal();
 	Node foco2 = U.getUserDestination().getLocal();
 	vector<User> in;
 
@@ -122,7 +126,7 @@ Node RideCenter::FindNode(unsigned long id) {
 vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
 		const Node & Dest, const vector<Node> InterestPoints,
 		unsigned int passenger_capacity) // Nao tem em conta lotação ainda
-		{
+{
 	unsigned int total_points = InterestPoints.size() + 2;
 
 	double dist[total_points - 1][total_points];
@@ -141,7 +145,7 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
 	// CALCULATE DIST AND PATHS
 
 	for (unsigned int i = 0; i + 1 < points.size(); i++) // DONT BUILD PATHS FROM END POINT TO OTHER POINTS
-			{
+	{
 		centerGraph(points[i]);
 		for (unsigned int t = 0; t < points.size(); t++) {
 			if (i == t) {
@@ -156,7 +160,7 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
 			//cout << "distant " << distant << endl;
 			dist[i][t] = distant;
 			cout << "distant " << " i: " << i << "t: " << t << " " << dist[i][t]
-					<< endl;
+																			  << endl;
 		}
 	}
 
@@ -216,7 +220,7 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
 		}
 
 		if (nextpos == points.size() - 1) // WHEN CANT COVER ALL POINT ( EU POSSO EXPLICAR ISTO SE TIVEREM DUVIDAS ASK xD )
-				{
+		{
 			allVisited = true;
 		}
 		if (allVisited == true) {	//index_order.push_back(points.size()-1);
@@ -294,44 +298,162 @@ void RideCenter::displayGraph(vector< Vertex<Node,Road> > passNodes){
 
 	gv->defineVertexColor("yellow");
 
-		typename vector<Relation>::iterator it = rels.begin();
-		typename vector<Relation>::iterator ite = rels.end();
+/*	typename vector<Relation>::iterator it = rels.begin();
+	typename vector<Relation>::iterator ite = rels.end();
 
-		//cout <<"DIST" <<endl;
-		for (; it != ite; it++) {
+	//cout <<"DIST" <<endl;
 
-			typename vector<Road>::iterator itRoad;
-			typename vector<Node>::iterator itNode1;
-			typename vector<Node>::iterator itNode2;
+	for (; it != ite; it++) {
 
-			int x,y;
+		typename vector<Road>::iterator itRoad;
+		typename vector<Node>::iterator itNode1;
+		typename vector<Node>::iterator itNode2;
 
-			itRoad = find(roads.begin(), roads.end(), Road(it->getRoadID()));
-			itNode1 = find(nodes.begin(), nodes.end(), Node(it->getNode1ID()));
-			itNode2 = find(nodes.begin(), nodes.end(), Node(it->getNode2ID()));
+		int x,y;
 
-			x=floor(((itNode1->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
-			y=floor(((itNode1->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
+		itRoad = find(roads.begin(), roads.end(), Road(it->getRoadID()));
+		itNode1 = find(nodes.begin(), nodes.end(), Node(it->getNode1ID()));
+		itNode2 = find(nodes.begin(), nodes.end(), Node(it->getNode2ID()));
 
-			cout << itNode1->getLonDeg() << endl;
+		x=floor(((itNode1->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
+		y=floor(((itNode1->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
 
-			x=floor(((itNode2->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
-			y=floor(((itNode2->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
+	//	cout << itNode1->getLonDeg() << endl;
 
-			gv->addNode(itNode2->getID(),x,y);
+		x=floor(((itNode2->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
+		y=floor(((itNode2->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
 
-			/*if (itRoad->getIsTwoWays()) {
-				gv->addEdge(itRoad->getID(),itNode1->getID(),itNode2->getID(),0);
-			} else {
-				gv->addEdge(itRoad->getID(),itNode1->getID(),itNode2->getID(),1);
-			}*/
+		gv->addNode(itNode1->getID(),x,-y);
+
+
+	}
+	cout << "PASSOU " << endl;
+	it = rels.begin();
+	long count = 0;
+	for(;it != ite ; it ++)
+	{
+
+		typename vector<Road>::iterator itRoad;
+		typename vector<Node>::iterator itNode1;
+		typename vector<Node>::iterator itNode2;
+
+
+		itRoad = find(roads.begin(), roads.end(), Road(it->getRoadID()));
+		itNode1 = find(nodes.begin(), nodes.end(), Node(it->getNode1ID()));
+		itNode2 = find(nodes.begin(), nodes.end(), Node(it->getNode2ID()));
+
+
+		if(count < 11)
+		if (itRoad->getIsTwoWays()) {
+			gv->addEdge(count,itNode1->getID(),itNode2->getID(),EdgeType::UNDIRECTED);
+		} else {
+			gv->addEdge(count,itNode1->getID(),itNode2->getID(),EdgeType::UNDIRECTED);
+		}
+		count ++;
+	}
+*/
+	//ADD NODES TO  MAP
+		typename vector<Node>::iterator it_node = nodes.begin();
+		typename vector<Node>::iterator ite_node = nodes.end();
+		int x,y;
+		for(;it_node != ite_node;it_node++)
+		{
+			x=floor(((it_node->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
+			y=floor(((it_node->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
+
+			gv->addNode(it_node->getID(),x,-y);
 		}
 
+
+	// ADD EDJES TO MAP
+		typename vector<Relation>::iterator it_relation = rels.begin();
+		typename vector<Relation>::iterator ite_relation = rels.end();
+		typename vector<Node>::iterator itNode1;
+		typename vector<Node>::iterator itNode2;
+		for(;it_relation != ite_relation; it_relation ++)
+		{
+			itNode1 = find(nodes.begin(), nodes.end(), Node(it_relation->getNode1ID()));
+			itNode2 = find(nodes.begin(), nodes.end(), Node(it_relation->getNode2ID()));
+
+
+		}
+	// CHANGE PATH NODES COLOR
 		for(unsigned int i=0;i<passNodes.size();i++)
 		{
 			gv->setVertexColor(passNodes[i].getInfo().getID(),"blue");
 		}
 
-		gv->rearrange();
+	/*for(unsigned int i=0;i<passNodes.size()-1;i++)
+			{
+					gv->addEdge(count,passNodes[i].getInfo().getID(),passNodes[i+1].getInfo().getID(),0);
+					count ++;
+		    }*/
+	gv->rearrange();
+}
+
+
+bool RideCenter::TestALLNodesConected(Node Sourc, Node Dest, vector<Node> Interest_Points)
+{
+	vector <Node> points;
+	points.push_back(Sourc);
+	for(unsigned i = 0; i < Interest_Points.size();i++)
+	{
+		points.push_back(Interest_Points[i]);
+	}
+	points.push_back(Dest);
+
+
+	int count = 0;
+
+	for(unsigned int i = 0; i < points.size(); i++)
+	{
+		Vertex< Node, Road > * v_sourc = graph.getVertex(points[i]);
+		vector <Node> nodes = graph.bfs(v_sourc );
+		for(unsigned int j = count; j < points.size();j++)
+		{
+			if(i==j) continue;
+			if(SourcDestConected(points[j],nodes) == false)
+				return false;
+		}
+
+		count ++;
+	}
+
+	return true;
+}
+
+
+bool RideCenter::SourcDestConected(Node dest, vector<Node> nodes){
+
+
+	vector<Node >::iterator it = nodes.begin();
+	vector<Node >::iterator ite = nodes.end();
+
+	while (it != ite)
+	{
+		if(it->getID() == dest.getID())
+			return true;
+
+		it ++;
+
+	}
+	return false;
+}
+
+double RideCenter::getEdjeID(double id_sourc, double id_dest)
+{
+	Node Sourc = FindNode(id_sourc);
+
+	vector<Edge <Node,Road> > edges = graph.getVertex(Sourc)->getAdj();
+
+	vector<Edge <Node,Road> > :: iterator it = edges.begin();
+	vector<Edge <Node,Road> > :: iterator ite = edges.end();
+
+	for(;it != ite; it ++)
+	{
+		if(it->getDest()->getInfo().getID() == id_dest)
+			return it->getID();
+	}
+	return -1;
 }
 

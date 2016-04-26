@@ -31,7 +31,9 @@ public:
 	Adress* getAdress(Node N)const;
 	void displayGraph(vector< Vertex<Node,Road> > passNodes);
 
-
+	bool SourcDestConected(Node dest, vector<Node> nodes);
+	bool TestALLNodesConected(Node Sourc, Node Dest, vector<Node> Interest_Points);
+	double getEdjeID(double id_sourc, double id_dest);
 };
 
 
