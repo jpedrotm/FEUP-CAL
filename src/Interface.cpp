@@ -59,7 +59,7 @@ void Interface::displayUsers() {
 		}
 	}
 
-	returnInput("Press any key.");
+	returnInput("Press any key.","");
 
 	displayMenu();
 }
@@ -71,7 +71,7 @@ void Interface::newUser() {
 	Node N;
 	Vertex<Node,Road> *v;
 
-	name=returnInput("Name: ");
+	name=returnInput("Name: ","Introduce a valid name");
 
 	age=returnInt("Age: ");
 
@@ -95,7 +95,7 @@ void Interface::newUser() {
 
 	while(choice!="yes" && choice!="no")
 	{
-		cout << "Want to go somewhere ?" << endl;
+		cout << "Want to go somewhere ? [yes/no]" << endl;
 		cin >> choice;
 	}
 
@@ -106,8 +106,8 @@ void Interface::newUser() {
 		i = 0;
 
 		while(true){
-		hI=returnInput("Hour to departure ?");
-		hF=returnInput("Hour to arrive ?");
+		hI=returnInput("Hour to departure ?","Introduce a valid hour");
+		hF=returnInput("Hour to arrive ?","Introduce a valid hour");
 		if(hF>hI)
 			break;
 		else
@@ -172,7 +172,7 @@ void Interface::defineUserDeparture(){
 	int j=0;
 
 	while (flag) {
-		name=returnInput("What is the user name ?");
+		name = returnInput("What is the user name ?", "Introduce a valid name." );
 		nodeID=returnInt("What is the ID of the node ?");
 
 		for (unsigned int i = 0; i < users.size(); i++) {
@@ -227,7 +227,7 @@ void Interface::departure(){
 	User *u;
 
 	while(flag){
-	name=returnInput("What is the user ?");
+	name=returnInput("What is the user ?","Introduce a valid name.");
 	ID=returnInt("What is the user place ID ?");
 
 	u=findUser(name,ID);
@@ -307,7 +307,7 @@ int Interface::returnInt(string s1)
 	return tmp;
 }
 
-string Interface::returnInput(string s1)
+string Interface::returnInput(string s1,string s2)
 {
 	std::string tmp;
 	bool valido = true;
@@ -317,7 +317,7 @@ string Interface::returnInput(string s1)
 		std::cin.clear();
 
 		if (!valido)
-			std::cout << "Introduza um nome nao vazio: ";
+			std::cout << s2;
 		else
 			std::cout << s1;
 

@@ -32,6 +32,10 @@ public:
 	void displayGraph(vector< Vertex<Node,Road> > passNodes);
 	Graph<Node,Road> getGraph() const;
 
+	bool SourcDestConected(Node dest, vector<Node> nodes);
+		bool TestALLNodesConected(Node Sourc, Node Dest, vector<Node> Interest_Points);
+		unsigned long getEdgeID(unsigned long id_sourc, unsigned long id_dest);
+
 
 };
 
