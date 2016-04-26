@@ -418,6 +418,7 @@ unsigned long RideCenter::getEdgeID(unsigned long id_sourc, unsigned long id_des
 {
 	Node Sourc = FindNode(id_sourc);
 
+	if(Sourc.getID() == 0)
 	{
 		cout << "node id:" << id_sourc << endl;
 		return 0;
