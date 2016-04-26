@@ -21,6 +21,7 @@ public:
   Vertex<Node,Road> *findPlace(Node n) const;
   vector<User*> getUsers();
   int returnInt(string s1);
+
   string returnInput(string s1,string s2);
   int selectMenu(char menor, char maior);
   User *findUser(string name,unsigned long ID) const;

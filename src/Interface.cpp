@@ -7,7 +7,7 @@ Interface::Interface(ReaderFiles r) {
 }
 
 void Interface::displayMenu() {
-	int nOptions = 0;
+
 	int option = 0;
 
 	cout << "Welcome to RideSharing! Please choose a option." << endl;
@@ -67,8 +67,9 @@ void Interface::displayUsers() {
 void Interface::newUser() {
 
 	string name;
-	int age, ID, i = 0,numP;
+	int age, i = 0,numP;
 	Node N;
+	unsigned long ID;
 	Vertex<Node,Road> *v;
 
 	name=returnInput("Name: ","Introduce a valid name");
@@ -78,15 +79,17 @@ void Interface::newUser() {
 	while (true) {
 		if (i == 0) {
 			cout << "What is the ID of your Adress: ";
-			cin >> ID;
 			i++;
-		} else {
-			cout << "ID invalid, new ID again:";
-			cin >> ID;
-		}
+		} else cout << "ID invalid, new ID again:";
 
+		cin >> ID;
+		cin.clear();
+		cin.ignore(1000,'\n');
 		if((v=findPlace(Node(ID)))!=NULL)
+			{
+			cout <<  "V NULL" << endl;
 			break;
+			}
 	}
 
 	Adress aInit = Adress(v->getInfo(), v->getAdj()[0].getEdgeInfo());
@@ -106,7 +109,9 @@ void Interface::newUser() {
 		i = 0;
 
 		while(true){
+			std::cin.ignore(1000,'\n');
 		hI=returnInput("Hour to departure ?","Introduce a valid hour");
+			std::cin.ignore(1000,'\n');
 		hF=returnInput("Hour to arrive ?","Introduce a valid hour");
 		if(hF>hI)
 			break;
@@ -168,7 +173,7 @@ void Interface::defineUserDeparture(){
 	unsigned long nodeID;
 	bool flag=true;
 	Vertex<Node,Road> *v;
-	int ID;
+	unsigned long ID;
 	int j=0;
 
 	while (flag) {
@@ -189,14 +194,15 @@ void Interface::defineUserDeparture(){
 				users[i]->setHoraFim(hF);
 
 				while (true) {
+					cin.ignore(1000);
 						if (j == 0) {
 							cout << "What is the ID of your destiny adress: ";
-							cin >> ID;
 							j++;
 						} else {
 							cout << "ID invalid, new ID again:";
-							cin >> ID;
 						}
+						cin >> ID;
+
 
 						if((v=findPlace(Node(ID)))!=NULL)
 							break;
@@ -306,7 +312,6 @@ int Interface::returnInt(string s1)
 
 	return tmp;
 }
-
 string Interface::returnInput(string s1,string s2)
 {
 	std::string tmp;
@@ -315,7 +320,6 @@ string Interface::returnInput(string s1,string s2)
 	do
 	{
 		std::cin.clear();
-
 		if (!valido)
 			std::cout << s2;
 		else
