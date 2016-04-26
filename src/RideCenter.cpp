@@ -30,13 +30,13 @@ RideCenter::RideCenter(ReaderFiles &r) {
 		double dist = itNode1->distance(*itNode2);
 
 		if (itRoad->getIsTwoWays()) {
-					graph.addEdge(*itNode1, *itNode2, *itRoad, dist,serial_N);
+			graph.addEdge(*itNode1, *itNode2, *itRoad, dist, serial_N);
 
-					graph.addEdge(*itNode2, *itNode1, *itRoad, dist,serial_N);
-				} else {
-					graph.addEdge(*itNode1, *itNode2, *itRoad, dist,serial_N);
-				}
-				serial_N ++;
+			graph.addEdge(*itNode2, *itNode1, *itRoad, dist, serial_N);
+		} else {
+			graph.addEdge(*itNode1, *itNode2, *itRoad, dist, serial_N);
+		}
+		serial_N++;
 	}
 }
 
@@ -49,18 +49,14 @@ void RideCenter::printGraph() const {
 	}
 }
 
-vector<User> RideCenter::in_elipse(User U,  vector<User> users) {
+bool RideCenter::in_elipse(Node foco1, Node foco2, Node N) {
 
-	/*Node foco1 = U.getUserAdress().getLocal();
-	Node foco2 = U.getUserDestination().getLocal();
-	vector<User> in;
-
-	double centroX = (foco1.getLat() + foco2.getLat()) / 2;
-	double centroY = (foco1.getLog() + foco2.getLog()) / 2;
+	double centroX = (foco1.getLatDeg() + foco2.getLatDeg()) / 2;
+	double centroY = (foco1.getLonDeg() + foco2.getLonDeg()) / 2;
 
 	Node centro_elipse = Node(centroX, centroY);
-	double dx = foco1.getLat() - centroX;
-	double dy = foco1.getLog() - centroY;
+	double dx = foco1.getLatDeg() - centroX;
+	double dy = foco1.getLonDeg() - centroY;
 
 	double c = sqrt(pow(dx, 2) + pow(dy, 2));
 	double a = c + DISTACIA_FOCAL
@@ -69,24 +65,22 @@ vector<User> RideCenter::in_elipse(User U,  vector<User> users) {
 	double x, y, d_f1, d_f2, comparador;
 	comparador = a + c + (a - c); //este valor é a distancia de um ponto da elipse a ambos os focos
 
-	for (int i = 0; i < users.size(); i++) {
+	x = N.getLatDeg();
+	y = N.getLonDeg();
 
-		x = users[i].getUserAdress().getLocal().getLat();
-		y = users[i].getUserAdress().getLocal().getLog();
+	dx = x - foco1.getLatDeg();
+	dy = y - foco1.getLonDeg();
+	d_f1 = sqrt(pow(dx, 2) + pow(dy, 2)); //distacia ao primeiro foco
 
-		dx = x - foco1.getLat();
-		dy = y - foco1.getLog();
-		d_f1 = sqrt(pow(dx, 2) + pow(dy, 2)); //distacia ao primeiro foco
+	dx = x - foco2.getLatDeg();
+	dy = y - foco2.getLonDeg();
+	d_f2 = sqrt(pow(dx, 2) + pow(dy, 2)); //distancia ao segundo foco
 
-		dx = x - foco2.getLat();
-		dy = y - foco2.getLog();
-		d_f2 = sqrt(pow(dx, 2) + pow(dy, 2)); //distancia ao segundo foco
+	if (d_f1 + d_f2 <= comparador) //se for menor ou igual esta contido na elipse
+		return true;
+	else
+		return false;
 
-		if (d_f1 + d_f2 <= comparador) //se for menor ou igual esta contido na elipse
-			in.push_back(users[i]);
-	}
-
-	return in;*/
 }
 
 void RideCenter::centerGraph(Node T) {
@@ -135,6 +129,7 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
 	//BUILD POINTS SEQUENCE
 	points.push_back(Sourc);
 	for (unsigned int i = 0; i < InterestPoints.size(); i++) {
+		if(in_elipse(Sourc,Dest, InterestPoints[i]))
 		points.push_back(InterestPoints[i]);
 	}
 
@@ -287,157 +282,143 @@ Adress* RideCenter::getAdress(Node N) const {
 	return A;
 }
 
-void RideCenter::displayGraph(vector< Vertex<Node,Road> > passNodes){
+void RideCenter::displayGraph(vector<Vertex<Node, Road> > passNodes) {
 	GraphViewer *gv = new GraphViewer(600, 600, false);
 
-
-	gv->createWindow(1200,1200);
+	gv->createWindow(1200, 1200);
 
 	gv->defineEdgeColor(ORANGE);
 
 	gv->defineVertexColor(YELLOW);
 
-	cout << "NODES" << nodes.size() <<  endl;
-
+	cout << "NODES" << nodes.size() << endl;
 
 	//ADD NODES TO  MAP
-		typename vector<Node>::iterator it_node = nodes.begin();
-		typename vector<Node>::iterator ite_node = nodes.end();
-		int x,y;
-		for(;it_node != ite_node;it_node++)
-		{
-			x=floor(((it_node->getLonDeg()-reader.getMinLon())*1200)/(reader.getMaxLon()-reader.getMinLon()));
-			y=floor(((it_node->getLatDeg()-reader.getMinLat())*1200)/(reader.getMaxLat()-reader.getMinLat()));
+	typename vector<Node>::iterator it_node = nodes.begin();
+	typename vector<Node>::iterator ite_node = nodes.end();
+	int x, y;
+	for (; it_node != ite_node; it_node++) {
+		x = floor(
+				((it_node->getLonDeg() - reader.getMinLon()) * 1200)
+						/ (reader.getMaxLon() - reader.getMinLon()));
+		y = floor(
+				((it_node->getLatDeg() - reader.getMinLat()) * 1200)
+						/ (reader.getMaxLat() - reader.getMinLat()));
 
-			gv->addNode(it_node->getID(),x,-y);
-		}
-
+		gv->addNode(it_node->getID(), x, -y);
+	}
 
 	// ADD EDJES TO MAP
-		typename vector<Relation>::iterator it = rels.begin();
-		typename vector<Relation>::iterator ite = rels.end();
+	typename vector<Relation>::iterator it = rels.begin();
+	typename vector<Relation>::iterator ite = rels.end();
 
-			//cout <<"DIST" <<endl;
-			for (; it != ite; it++) {
+	//cout <<"DIST" <<endl;
+	for (; it != ite; it++) {
 
-				typename vector<Road>::iterator itRoad;
-		    	itRoad = find(roads.begin(), roads.end(), Road(it->getRoadID()));
+		typename vector<Road>::iterator itRoad;
+		itRoad = find(roads.begin(), roads.end(), Road(it->getRoadID()));
 
-				//	cout << dist << endl;
+		//	cout << dist << endl;
 
-		    		unsigned long ID = getEdgeID(it->getNode1ID(),it->getNode2ID());
-		    		if(ID == 0)
-		    		{
-		    			cout << "NAO DESENHOU ARESTA" << endl;
-		    			continue;
-		    		}
-				if (itRoad->getIsTwoWays()) {
+		unsigned long ID = getEdgeID(it->getNode1ID(), it->getNode2ID());
+		if (ID == 0) {
+			cout << "NAO DESENHOU ARESTA" << endl;
+			continue;
+		}
+		if (itRoad->getIsTwoWays()) {
 
+			gv->addEdge(ID, it->getNode1ID(), it->getNode2ID(),
+					EdgeType::UNDIRECTED);
 
-					gv->addEdge(ID,it->getNode1ID(),it->getNode2ID(),EdgeType::UNDIRECTED);
-
-				} else {
-					gv->addEdge(ID,it->getNode1ID(),it->getNode2ID(),EdgeType::DIRECTED);
-				}
-			}
-
+		} else {
+			gv->addEdge(ID, it->getNode1ID(), it->getNode2ID(),
+					EdgeType::DIRECTED);
+		}
+	}
 
 	// CHANGE PATH NODES COLOR
-		for(unsigned int i=0;i<passNodes.size();i++)
-		{
-			gv->setVertexColor(passNodes[i].getInfo().getID(),BLUE);
-		}
+	for (unsigned int i = 0; i < passNodes.size(); i++) {
+		gv->setVertexColor(passNodes[i].getInfo().getID(), BLUE);
+	}
 	// CHANGE PATH EDGES COLOR
-	for(unsigned int i=0;i<passNodes.size()-1;i++)
-			{
-					unsigned long id = getEdgeID(passNodes[i].getInfo().getID(),passNodes[i+1].getInfo().getID());
-					gv->setEdgeColor(id,BLUE);
-		    }
+	for (unsigned int i = 0; i < passNodes.size() - 1; i++) {
+		unsigned long id = getEdgeID(passNodes[i].getInfo().getID(),
+				passNodes[i + 1].getInfo().getID());
+		gv->setEdgeColor(id, BLUE);
+	}
 	gv->rearrange();
 }
 
-Graph<Node,Road> RideCenter::getGraph() const{
+Graph<Node, Road> RideCenter::getGraph() const {
 	return graph;
 }
 
-bool RideCenter::TestALLNodesConected(Node Sourc, Node Dest, vector<Node> Interest_Points)
-{
-	vector <Node> points;
+bool RideCenter::TestALLNodesConected(Node Sourc, Node Dest,
+		vector<Node> Interest_Points) {
+	vector<Node> points;
 	points.push_back(Sourc);
-	for(unsigned i = 0; i < Interest_Points.size();i++)
-	{
+	for (unsigned i = 0; i < Interest_Points.size(); i++) {
 		points.push_back(Interest_Points[i]);
 	}
 	points.push_back(Dest);
 
-
 	int count = 0;
 
-	for(unsigned int i = 0; i < points.size(); i++)
-	{
+	for (unsigned int i = 0; i < points.size(); i++) {
 
-		vector <Node> nodes = graph.dfs(points[i]);
-		cout << "nodes size"  << nodes.size() << endl;
-		for(unsigned int j = count; j < points.size();j++)
-		{
-			if(i==j) continue;
-			if(SourcDestConected(points[j],nodes) == false)
-				{
-					cout<< i << " j: " << j <<  " " << "false" ;
+		vector<Node> nodes = graph.dfs(points[i]);
+		cout << "nodes size" << nodes.size() << endl;
+		for (unsigned int j = count; j < points.size(); j++) {
+			if (i == j)
+				continue;
+			if (SourcDestConected(points[j], nodes) == false) {
+				cout << i << " j: " << j << " " << "false";
 				//return false; TODO
-				}
-			else cout<< i << " j: " << j <<  " " << " true " ;
+			} else
+				cout << i << " j: " << j << " " << " true ";
 		}
 
 		cout << endl;
-		count ++;
+		count++;
 	}
 
 	return true;
 }
 
+bool RideCenter::SourcDestConected(Node dest, vector<Node> nodes) {
 
-bool RideCenter::SourcDestConected(Node dest, vector<Node> nodes){
+	vector<Node>::iterator it = nodes.begin();
+	vector<Node>::iterator ite = nodes.end();
 
-
-	vector<Node >::iterator it = nodes.begin();
-	vector<Node >::iterator ite = nodes.end();
-
-	while (it != ite)
-	{
-		if(it->getID() == dest.getID())
+	while (it != ite) {
+		if (it->getID() == dest.getID())
 			return true;
 
-		it ++;
+		it++;
 
 	}
 	return false;
 }
 
-unsigned long RideCenter::getEdgeID(unsigned long id_sourc, unsigned long id_dest)
-{
+unsigned long RideCenter::getEdgeID(unsigned long id_sourc,
+		unsigned long id_dest) {
 	Node Sourc = FindNode(id_sourc);
 
-	if(Sourc.getID() == 0)
-	{
+	if (Sourc.getID() == 0) {
 		cout << "node id:" << id_sourc << endl;
 		return 0;
 	}
 
-	vector<Edge <Node,Road> > edges = graph.getVertex(Sourc)->getAdj();
+	vector<Edge<Node, Road> > edges = graph.getVertex(Sourc)->getAdj();
 
+	vector<Edge<Node, Road> >::iterator it = edges.begin();
+	vector<Edge<Node, Road> >::iterator ite = edges.end();
 
-	vector<Edge <Node,Road> > :: iterator it = edges.begin();
-	vector<Edge <Node,Road> > :: iterator ite = edges.end();
-
-	for(;it != ite; it ++)
-	{
-		if(it->getDest()->getInfo().getID() == id_dest)
+	for (; it != ite; it++) {
+		if (it->getDest()->getInfo().getID() == id_dest)
 			return it->getID();
 	}
 
 	return 0;
 }
-
-
 

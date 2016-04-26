@@ -20,7 +20,7 @@ public:
 	RideCenter(){};
 	RideCenter(ReaderFiles &r);
 	void printGraph() const;
-	vector<User> in_elipse(User U, vector<User> users);
+	bool in_elipse(Node foco1, Node foco2, Node N);
 
 	//VAI PARA PRIVATE MUDAR DEPOIS
 	void centerGraph(Node T);
