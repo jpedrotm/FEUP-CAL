@@ -259,8 +259,10 @@ void Interface::departure(){
 			User *temp=users[i];
 			if(temp->getHoraInit()>u->getHoraInit() && temp->getHoraFim()==u->getHoraFim() && users[i]->getUserDestination().getLocal()==u->getUserDestination().getLocal())
 			{
-				passPoints.push_back(users[i]->getUserAdress().getLocal());
-				numPassPicked++;
+				if (center.in_elipse(u->getUserAdress().getLocal(), u->getUserDestination().getLocal(), users[i]->getUserAdress().getLocal())) {
+						passPoints.push_back(users[i]->getUserAdress().getLocal());
+						numPassPicked++;
+				}
 			}
 		}
 		if(numPassPicked==numPass)

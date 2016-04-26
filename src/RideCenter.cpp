@@ -129,7 +129,6 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
 	//BUILD POINTS SEQUENCE
 	points.push_back(Sourc);
 	for (unsigned int i = 0; i < InterestPoints.size(); i++) {
-		if(in_elipse(Sourc,Dest, InterestPoints[i]))
 		points.push_back(InterestPoints[i]);
 	}
 
