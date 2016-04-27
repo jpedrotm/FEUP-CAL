@@ -8,13 +8,13 @@ int main() {
 
 	ReaderFiles r = ReaderFiles();
 
-	//Interface cli=Interface(r);
+	Interface cli=Interface(r);
 
-	//cli.displayMenu();
+	cli.displayMenu();
 	RideCenter center = RideCenter(r);
 
 	//cout << "PRINT GRAPH" << endl;
-	center.printGraph();
+	//center.printGraph();
 	cout << "DISTRAK" << endl;
 	//TEST 1 grahp.path
 	//	center.centerGraph(temp);
@@ -23,7 +23,7 @@ int main() {
 	//	cout << "DIST" << dist << endl;
 
 	//TEST2 BestPath Multiple Points
-	Node temp = center.FindNode(441803408);
+	/*Node temp = center.FindNode(441803408);
 
 	Node temp2 = center.FindNode(441803285);
 	vector<Node> Pontos_interesse;
@@ -50,7 +50,7 @@ int main() {
 			}
 
 			getchar();
-
+*/
 			return 0;
 		}
 

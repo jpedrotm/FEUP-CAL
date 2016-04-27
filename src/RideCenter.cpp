@@ -83,8 +83,10 @@ vector<Vertex<Node, Road> *> RideCenter::getPath(const Node &Sourc,
 }
 
 Node RideCenter::FindNode(unsigned long id) {
-	vector<Vertex<Node, Road> *>::iterator it = graph.getVertexSet().begin();
-	vector<Vertex<Node, Road> *>::iterator ite = graph.getVertexSet().end();
+
+	vector<Vertex<Node, Road> *> temp = graph.getVertexSet();
+	vector<Vertex<Node, Road> *>::iterator it = temp.begin();
+	vector<Vertex<Node, Road> *>::iterator ite = temp.end();
 
 	while (it != ite) {
 		if ((*it)->getInfo().getID() == id)
@@ -207,15 +209,6 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
 	}
 
 	//BUILD FINAL PATH
-	cout << "AQUIdasdasd" << endl;
-	vector<Vertex<Node, Road> *>::iterator it1 = paths[2].begin();
-	vector<Vertex<Node, Road> *>::iterator ite1 = paths[2].end();
-
-	while (it1 != ite1) {
-		cout << (*it1)->getInfo().getID() << endl;
-		it1++;
-	}
-
 	vector<Vertex<Node, Road> > final;
 
 	cout << "AQUI" << endl;
@@ -333,7 +326,7 @@ Graph<Node, Road> RideCenter::getGraph() const {
 }
 
 bool RideCenter::TestALLNodesConected(Node Sourc, Node Dest,
-		vector<Node> Interest_Points) {
+		vector<Node> Interest_Points, unsigned int &ban) {
 	vector<Node> points;
 	points.push_back(Sourc);
 	for (unsigned i = 0; i < Interest_Points.size(); i++) {
@@ -352,7 +345,8 @@ bool RideCenter::TestALLNodesConected(Node Sourc, Node Dest,
 				continue;
 			if (SourcDestConected(points[j], nodes) == false) {
 				cout << i << " j: " << j << " " << "false";
-				//return false; TODO
+				ban = j-1;//TODO
+				return false;
 			} else
 				cout << i << " j: " << j << " " << " true ";
 		}

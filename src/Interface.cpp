@@ -86,10 +86,10 @@ void Interface::newUser() {
 		cin.clear();
 		cin.ignore(1000,'\n');
 		if((v=findPlace(Node(ID)))!=NULL)
-			{
+		{
 			cout <<  "V NULL" << endl;
 			break;
-			}
+		}
 	}
 
 	Adress aInit = Adress(v->getInfo(), v->getAdj()[0].getEdgeInfo());
@@ -110,14 +110,14 @@ void Interface::newUser() {
 
 		while(true){
 			std::cin.ignore(1000,'\n');
-		hI=returnInput("Hour to departure ?","Introduce a valid hour");
+			hI=returnInput("Hour to departure ?","Introduce a valid hour");
 			std::cin.ignore(1000,'\n');
-		hF=returnInput("Hour to arrive ?","Introduce a valid hour");
+			hF=returnInput("Hour to arrive ?","Introduce a valid hour");
 
-		if(hF>hI)
-			break;
-		else
-			cout << "Not a possible choice. Please choose the hours again." << endl;
+			if(hF>hI)
+				break;
+			else
+				cout << "Not a possible choice. Please choose the hours again." << endl;
 		}
 
 		numP=returnInt("How many passengers can you transport ?");
@@ -196,18 +196,18 @@ void Interface::defineUserDeparture(){
 
 				while (true) {
 					cin.ignore(1000);
-						if (j == 0) {
-							cout << "What is the ID of your destiny adress: ";
-							j++;
-						} else {
-							cout << "ID invalid, new ID again:";
-						}
-						cin >> ID;
-
-
-						if((v=findPlace(Node(ID)))!=NULL)
-							break;
+					if (j == 0) {
+						cout << "What is the ID of your destiny adress: ";
+						j++;
+					} else {
+						cout << "ID invalid, new ID again:";
 					}
+					cin >> ID;
+
+
+					if((v=findPlace(Node(ID)))!=NULL)
+						break;
+				}
 
 				cout << v->getInfo().getID() << " | " << v->getAdj()[0].getEdgeInfo().getName() << endl;
 
@@ -229,29 +229,29 @@ void Interface::departure(){
 	unsigned long ID;
 	vector<Node> passPoints;
 	bool flag=true;
-	int numPassPicked=0;
-	int numPass;
+	//int numPassPicked=0;
+	//int numPass;
 	User *u;
 
 	while(flag){
-	name=returnInput("What is the user ?","Introduce a valid name.");
-	ID=returnInt("What is the user place ID ?");
+		name=returnInput("What is the user ?","Introduce a valid name.");
+		ID=returnInt("What is the user place ID ?");
 
-	u=findUser(name,ID);
+		u=findUser(name,ID);
 
-	if(!u->getWantDest())
-	{
-		cout << "User don't have a destiny for now." << endl;
-		displayMenu();
+		if(!u->getWantDest())
+		{
+			cout << "User don't have a destiny ." << endl;
+			displayMenu();
+		}
+
+		if(u!=NULL)
+			flag=false;
+		else
+			cout << "Invalid information. Please try again." << endl;
 	}
 
-	if(u!=NULL)
-		flag=false;
-	else
-		cout << "Invalid information. Please try again." << endl;
-	}
-
-	numPass=u->getNumPassegers();
+	//numPass=u->getNumPassegers();
 
 	for(unsigned int i=0;i<users.size();i++)
 	{
@@ -261,15 +261,15 @@ void Interface::departure(){
 			if(temp->getHoraInit()>u->getHoraInit() && temp->getHoraFim()==u->getHoraFim() && users[i]->getUserDestination().getLocal()==u->getUserDestination().getLocal())
 			{
 				if (center.in_elipse(u->getUserAdress().getLocal(), u->getUserDestination().getLocal(), users[i]->getUserAdress().getLocal())) {
-						passPoints.push_back(users[i]->getUserAdress().getLocal());
-						numPassPicked++;
+					passPoints.push_back(users[i]->getUserAdress().getLocal());
+					//numPassPicked++;
 				}
 			}
 		}
-		if(numPassPicked==numPass)
-			break;
+		//if(numPassPicked==numPass)
+		//	break;
 	}
-
+	vector<Node>PickedUsers = SelectUsersForRide(u->getUserAdress().getLocal(),passPoints,u->getUserDestination().getLocal(),u->getNumPassegers());
 	vector<Vertex<Node, Road> > teste = center.BestPath(u->getUserAdress().getLocal(),
 			u->getUserDestination().getLocal(),passPoints, 0);
 
@@ -379,3 +379,40 @@ User *Interface::findUser(string name,unsigned long ID) const{
 	return NULL;
 }
 
+
+vector<Node> Interface::SelectUsersForRide(Node Sourc,vector<Node> Positions,  Node Dest,unsigned int lot)
+{
+	vector<Node>Picked;
+
+
+	vector<Node>::iterator it = Positions.begin();
+	vector<Node>::iterator ite = Positions.end();
+
+	unsigned int count = 0;
+	for(;it != ite;it++)
+	{
+		Picked.push_back(*it);
+		if(count >= lot)
+		{
+			unsigned int ban = 0;
+			if(center.TestALLNodesConected(Sourc,Dest,Picked,ban) == false)
+			{
+				Picked.erase(Picked.begin()+ban);
+			}
+			else return Picked;
+		}
+	}
+	while(Picked.size() > 0)
+	{
+		if(Picked.size() < lot)
+		{
+			unsigned int ban = 0;
+			if(center.TestALLNodesConected(Sourc,Dest,Picked,ban) == false)
+			{
+				Picked.erase(Picked.begin()+ban);
+			}
+			else return Picked;
+		}
+	}
+	return Picked;
+}
