@@ -69,12 +69,6 @@ void RideCenter::centerGraph(Node T) {
 vector<Vertex<Node, Road> *> RideCenter::getPath(const Node &Sourc,
 		const Node &Dest, double &dist) {
 	std::vector<Vertex<Node, Road> *> path = graph.getPath(Sourc, Dest);
-
-	/*	for(unsigned int i = 0;i < path.size() ;i++){
-	 cout << "i : " << i << " node id: " << path[i]->getInfo().getID() << " Dist: ";
-	 cout << path[i]->getDist() << endl;
-	 }*/
-
 	vector<Vertex<Node, Road>*>::iterator it = path.end();
 	--it;
 	dist = (*it)->getDist();
@@ -97,9 +91,7 @@ Node RideCenter::FindNode(unsigned long id) {
 	return Node(0);
 }
 
-vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,
-		const Node & Dest, const vector<Node> InterestPoints,
-		unsigned int passenger_capacity) // Nao tem em conta lotação ainda
+vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,const Node & Dest, const vector<Node> InterestPoints)
 		{
 	unsigned int total_points = InterestPoints.size() + 2;
 

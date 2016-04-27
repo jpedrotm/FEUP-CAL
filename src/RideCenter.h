@@ -48,26 +48,81 @@ public:
 	 */
 	void printGraph() const;
 	/**
-	 * Function that calculates if a node is inside of the elipse.
+	 * Function that calculates if a node is inside of the ellipse.
 	 * @param foco1.
 	 * @param foco2.
 	 * @param n.
-	 * @return true if the node n is inside of the elipse.
+	 * @return true if the node n is inside of the ellipse.
 	 */
 	bool in_elipse(Node foco1, Node foco2, Node N);
 
-	//VAI PARA PRIVATE MUDAR DEPOIS
+	/**
+	 * Function that calls  Dijkstra algorithm implementation
+	 * @param T Starting Point on Desired Path
+	 */
 	void centerGraph(Node T);
+
+    /**
+     *Returns path between Sourc and Dest if possible
+     *Update dist value to total distance between Sourc and Dest
+     *@param Sourc
+     *@param Dest
+     *@param dist
+     */
 	vector<Vertex<Node,Road> *> getPath(const Node &Sourc,const Node &Dest, double &dist) ;
-	//
+
+	/**
+	 * Find a node based in is unique id
+	 * @param id.
+	 * @return Node if exits, NULL otherwise.
+	 */
 	Node FindNode(unsigned long id);
-	vector< Vertex<Node,Road> > BestPath(const Node &Sourc, const Node & Dest,const vector <Node> InterestPoints, unsigned int passenger_capacity);
+	/**Return the best path between a Sourc and Dest nodes passing by InterestPoints
+	  *@return vector<Vertex<Node, Road> > sequence between Sourc and Dest
+	  */
+	vector<Vertex<Node, Road> > BestPath(const Node &Sourc,const Node & Dest, const vector<Node> InterestPoints);
+
+	/**
+	 * Returns a pointer  of class Address that contain Node N
+	 * @param N
+	 * @return Pointer to Address object
+	 */
 	Adress* getAdress(Node N)const;
+	/**
+	 * Call's graphviewer application
+	 * @param passNodes
+	 */
 	void displayGraph(vector< Vertex<Node,Road> > passNodes);
+	/**
+	 * Return a copy of RideCenter graph
+	 * @return Grap<Node,Road>
+	 */
 	Graph<Node,Road> getGraph() const;
 
+	/**
+	 * Check if dest is present in nodes vector
+	 * @param nodes
+	 * @return true is exist in  nodes, false  otherwise
+	 */
 	bool SourcDestConected(Node dest, vector<Node> nodes);
+
+	/**
+	 * Check if  Sourc is connected with Dest and Interest_Point,also check if all Interest_points
+	 * are connected  to Dest
+	 * @param Sourc
+	 * @paramm Dest
+	 * @Interest_Points
+	 * @ban
+	 * @return true is all nodes connected, false if not.
+	 */
     bool TestALLNodesConected(Node Sourc, Node Dest, vector<Node> Interest_Points,unsigned int &ban);
+
+    /**
+     * Return Edge id number
+     * @param id_sourc
+     * @param id_dest
+     * @return EdgeID
+     */
 	unsigned long getEdgeID(unsigned long id_sourc, unsigned long id_dest);
 
 
