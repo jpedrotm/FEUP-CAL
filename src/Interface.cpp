@@ -40,10 +40,9 @@ void Interface::displayMenu() {
 void Interface::displayUsers() {
 
 	if (users.size() == 0) {
-		cout << "No users registered. Enter to main menu." << endl;
-		string input;
-		cin >> input;
+		cout << "No users registered." << endl;
 		displayMenu();
+		return;
 	} else {
 		cout << "Users registed: " << endl;
 		for (unsigned int i = 0; i < users.size(); i++) {
@@ -59,9 +58,10 @@ void Interface::displayUsers() {
 		}
 	}
 
-	returnInput("Press any key.","");
+
 
 	displayMenu();
+	return;
 }
 
 void Interface::newUser() {
