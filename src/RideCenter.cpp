@@ -1,7 +1,6 @@
 #include "RideCenter.h"
 
 #include <algorithm>
-#define DISTACIA_FOCAL 50;
 
 RideCenter::RideCenter(ReaderFiles &r) {
 
@@ -51,32 +50,13 @@ void RideCenter::printGraph() const {
 
 bool RideCenter::in_elipse(Node foco1, Node foco2, Node N) {
 
-	double centroX = (foco1.getLatDeg() + foco2.getLatDeg()) / 2;
-	double centroY = (foco1.getLonDeg() + foco2.getLonDeg()) / 2;
 
-	Node centro_elipse = Node(centroX, centroY);
-	double dx = foco1.getLatDeg() - centroX;
-	double dy = foco1.getLonDeg() - centroY;
+	double dist= foco1.distance(foco2);
+	double comparador= 2*dist+ dist/4;
 
-	double c = sqrt(pow(dx, 2) + pow(dy, 2));
-	double a = c + DISTACIA_FOCAL
-	;
-
-	double x, y, d_f1, d_f2, comparador;
-	comparador = a + c + (a - c); //este valor é a distancia de um ponto da elipse a ambos os focos
-
-	x = N.getLatDeg();
-	y = N.getLonDeg();
-
-	dx = x - foco1.getLatDeg();
-	dy = y - foco1.getLonDeg();
-	d_f1 = sqrt(pow(dx, 2) + pow(dy, 2)); //distacia ao primeiro foco
-
-	dx = x - foco2.getLatDeg();
-	dy = y - foco2.getLonDeg();
-	d_f2 = sqrt(pow(dx, 2) + pow(dy, 2)); //distancia ao segundo foco
-
-	if (d_f1 + d_f2 <= comparador) //se for menor ou igual esta contido na elipse
+	double dist_1= foco1.distance(N);
+	double dist_2= foco2.distance(N);
+	if (dist_1+dist_2 <= comparador) //se for menor ou igual esta contido na elipse
 		return true;
 	else
 		return false;

@@ -113,6 +113,7 @@ void Interface::newUser() {
 		hI=returnInput("Hour to departure ?","Introduce a valid hour");
 			std::cin.ignore(1000,'\n');
 		hF=returnInput("Hour to arrive ?","Introduce a valid hour");
+
 		if(hF>hI)
 			break;
 		else

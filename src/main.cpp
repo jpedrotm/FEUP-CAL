@@ -1,4 +1,3 @@
-
 #include "Interface.h"
 #include "ReaderFiles.h"
 #include "RideCenter.h"
@@ -9,15 +8,13 @@ int main() {
 
 	ReaderFiles r = ReaderFiles();
 
-	Interface cli=Interface(r);
+	//Interface cli=Interface(r);
 
-	cli.displayMenu();
+	//cli.displayMenu();
+	RideCenter center = RideCenter(r);
 
-	//RideCenter center = RideCenter(r);
-
-	/*//cout << "PRINT GRAPH" << endl;
-	//center.printGraph();
-
+	//cout << "PRINT GRAPH" << endl;
+	center.printGraph();
 	cout << "DISTRAK" << endl;
 	//TEST 1 grahp.path
 	//	center.centerGraph(temp);
@@ -26,29 +23,34 @@ int main() {
 	//	cout << "DIST" << dist << endl;
 
 	//TEST2 BestPath Multiple Points
-	Node temp = center.FindNode(506859190);
+	Node temp = center.FindNode(441803408);
 
-	Node temp2 = center.FindNode(771440364);
+	Node temp2 = center.FindNode(441803285);
 	vector<Node> Pontos_interesse;
-	Pontos_interesse.push_back(center.FindNode(768566003));
-//	Pontos_interesse.push_back(center.FindNode(25632366));
-//	Pontos_interesse.push_back(center.FindNode(452682268));
-	//NAO TEM A LOTAÇAO A FUNCIONAR
-	vector<Vertex<Node, Road> > teste = center.BestPath(temp, temp2,
-			Pontos_interesse, 0);
+	if(center.in_elipse(temp,temp2,center.FindNode(441803328)))
+	Pontos_interesse.push_back(center.FindNode(441803328));
 
-	center.displayGraph(teste);
+	if(center.in_elipse(temp,temp2,center.FindNode(441803282)))
+	Pontos_interesse.push_back(center.FindNode(441803282));
+	//Pontos_interesse.push_back(center.FindNode(441819655));
+	//Pontos_interesse.push_back(center.FindNode(441803329));
+	//Pontos_interesse.push_back(center.FindNode(452682268));
+			//NAO TEM A LOTAÇAO A FUNCIONAR
+			vector<Vertex<Node, Road> > teste = center.BestPath(temp, temp2,
+					Pontos_interesse, 0);
 
-	vector<Vertex<Node, Road> >::iterator it = teste.begin();
-	vector<Vertex<Node, Road> >::iterator ite = teste.end();
+			center.displayGraph(teste);
 
-	while (it != ite) {
-		cout << it->getInfo().getID() << endl;
-		it++;
-	}
+			vector<Vertex<Node, Road> >::iterator it = teste.begin();
+			vector<Vertex<Node, Road> >::iterator ite = teste.end();
 
-	getchar();
-	*/
-	return 0;
-}
+			while (it != ite) {
+				cout << it->getInfo().getID() << endl;
+				it++;
+			}
+
+			getchar();
+
+			return 0;
+		}
 
