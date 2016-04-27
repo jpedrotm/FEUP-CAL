@@ -229,8 +229,6 @@ void Interface::departure(){
 	unsigned long ID;
 	vector<Node> passPoints;
 	bool flag=true;
-	//int numPassPicked=0;
-	//int numPass;
 	User *u;
 
 	while(flag){
@@ -256,7 +254,7 @@ void Interface::departure(){
 			cout << "Invalid information. Please try again." << endl;
 	}
 
-	//numPass=u->getNumPassegers();
+
 
 	for(unsigned int i=0;i<users.size();i++)
 	{
@@ -267,16 +265,15 @@ void Interface::departure(){
 			{
 				if (center.in_elipse(u->getUserAdress().getLocal(), u->getUserDestination().getLocal(), users[i]->getUserAdress().getLocal())) {
 					passPoints.push_back(users[i]->getUserAdress().getLocal());
-					//numPassPicked++;
+
 				}
 			}
 		}
-		//if(numPassPicked==numPass)
-		//	break;
+
 	}
 	vector<Node>PickedUsers = SelectUsersForRide(u->getUserAdress().getLocal(),passPoints,u->getUserDestination().getLocal(),u->getNumPassegers());
 	vector<Vertex<Node, Road> > teste = center.BestPath(u->getUserAdress().getLocal(),
-			u->getUserDestination().getLocal(),passPoints, 0);
+			u->getUserDestination().getLocal(),passPoints);
 
 	center.displayGraph(teste);
 
@@ -407,7 +404,7 @@ vector<Node> Interface::SelectUsersForRide(Node Sourc,vector<Node> Positions,  N
 			else return Picked;
 		}
 	}
-	while(Picked.size() > 0)
+	while(Picked.size() > 0 && Picked.size() < lot)
 	{
 		if(Picked.size() < lot)
 		{
