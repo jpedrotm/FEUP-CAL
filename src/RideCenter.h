@@ -105,7 +105,12 @@ public:
 	 * @return true is exist in  nodes, false  otherwise
 	 */
 	bool SourcDestConected(Node dest, vector<Node> nodes);
-
+	/**
+		 * Check if dest is present in nodes vector
+		 * @param nodes
+		 * @return true is exist in  nodes, false  otherwise
+		 */
+	bool SourcDestConectedDFS(Node sourc, Node dest);
 	/**
 	 * Check if  Sourc is connected with Dest and Interest_Point,also check if all Interest_points
 	 * are connected  to Dest
@@ -125,6 +130,12 @@ public:
      */
 	unsigned long getEdgeID(unsigned long id_sourc, unsigned long id_dest);
 
+/**
+ * Returns a vertex of the graph
+ * @param n
+ * @return NULL if does not exits otherwise returns a Vertex<Node.Road> pointer
+ */
+	Vertex<Node,Road>* findVertex(Node n) const;
 
 };
 

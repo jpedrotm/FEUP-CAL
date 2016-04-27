@@ -26,7 +26,7 @@ public:
   int selectMenu(char menor, char maior);
   User *findUser(string name,unsigned long ID) const;
   vector<Node> SelectUsersForRide(Node Sourc,vector<Node> Positions,  Node Dest, unsigned int lot);
-
+  double returnDouble(string s1);
 };
 
 #endif

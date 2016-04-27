@@ -11,7 +11,8 @@ RideCenter::RideCenter(ReaderFiles &r) {
 	typename vector<Relation>::iterator it = rels.begin();
 	typename vector<Relation>::iterator ite = rels.end();
 
-	//cout <<"DIST" <<endl;
+
+
 	unsigned int serial_N = 1;
 	for (; it != ite; it++) {
 
@@ -118,12 +119,10 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,const Node & 
 				dist[i][t] = 0;
 				vector<Vertex<Node, Road>*> a;
 				paths.push_back(a);
-				cout << "dist " << dist[i][t] << endl;
 				continue;
 			}
 			double distant;
 			paths.push_back(getPath(points[i], points[t], distant));
-			//cout << "distant " << distant << endl;
 			dist[i][t] = distant;
 			cout << "distant " << " i: " << i << "t: " << t << " " << dist[i][t]
 					<< endl;
@@ -146,7 +145,7 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,const Node & 
 	index_order.push_back(0);
 	cout << "TOTAL POINTS" << points.size() << endl;
 
-	while (!allVisited) {	//cout << "inicio" << endl;
+	while (!allVisited) {
 
 		double min = 999.99;
 		int nextpos = points.size() - 1;
@@ -155,17 +154,14 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,const Node & 
 			if (dist[pos][t] < min && dist[pos][t] != 0) {
 
 				if (visited[t] == 0) {
-					//			cout << "entrou" << endl;
 					min = dist[pos][t];
 					nextpos = t;
-					cout << "troca" << endl;
+
 				}
 
 			}
 		}
-		//
 
-		//	cout << "t" << nextpos <<endl;
 		visited[pos] = 1;
 		if (min != 999.99)
 			total_dist += min;
@@ -174,15 +170,15 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,const Node & 
 		pos = nextpos;
 		index_order.push_back(pos);
 
-		//	cout << "VISITED" << endl;
+
 		for (unsigned int i = 0; i < points.size() - 1; i++) {
 
 			if (visited[i] == 0) {
-				//		cout << i << " FALSE " << endl;
+
 				allVisited = false;
 				break;
 			}
-			//		else cout << i << " True " << endl;
+
 		}
 
 		if (nextpos == points.size() - 1) // WHEN CANT COVER ALL POINT ( EU POSSO EXPLICAR ISTO SE TIVEREM DUVIDAS ASK xD )
@@ -194,32 +190,30 @@ vector<Vertex<Node, Road> > RideCenter::BestPath(const Node &Sourc,const Node & 
 				cout << index_order[t] << endl;
 			}
 
-			cout << "TOTAL DIST " << total_dist << endl;
+			cout << "TOTAL DISTANCE:  " << total_dist << endl;
 		}
 
-		//cout << "nao sai" << endl;
 	}
 
 	//BUILD FINAL PATH
 	vector<Vertex<Node, Road> > final;
 
-	cout << "AQUI" << endl;
+
 
 	for (unsigned int i = 0; i + 1 < index_order.size(); i++) {
 
 		int path_index = index_order[i] * (points.size()) + index_order[i + 1];
-		cout << "path " << path_index << endl;
+
 		vector<Vertex<Node, Road> *>::iterator it = paths[path_index].begin();
 		vector<Vertex<Node, Road> *>::iterator ite = paths[path_index].end();
 		if (i > 0)
 			it++;
 		while (it != ite) {
-			//cout <<"ciclo" << endl;
 			final.push_back(*(*it));
 			it++;
 		}
 	}
-	cout << "saiu" << endl;
+
 
 	return final;
 }
@@ -247,6 +241,7 @@ Adress* RideCenter::getAdress(Node N) const {
 }
 
 void RideCenter::displayGraph(vector<Vertex<Node, Road> > passNodes) {
+	cout <<"count" << passNodes.size() << endl;
 	GraphViewer *gv = new GraphViewer(600, 600, false);
 
 	gv->createWindow(1200, 1200);
@@ -255,8 +250,7 @@ void RideCenter::displayGraph(vector<Vertex<Node, Road> > passNodes) {
 
 	gv->defineVertexColor(YELLOW);
 
-	cout << "NODES" << nodes.size() << endl;
-
+	gv->defineEdgeCurved(false);
 	//ADD NODES TO  MAP
 	typename vector<Node>::iterator it_node = nodes.begin();
 	typename vector<Node>::iterator ite_node = nodes.end();
@@ -276,13 +270,11 @@ void RideCenter::displayGraph(vector<Vertex<Node, Road> > passNodes) {
 	typename vector<Relation>::iterator it = rels.begin();
 	typename vector<Relation>::iterator ite = rels.end();
 
-	//cout <<"DIST" <<endl;
 	for (; it != ite; it++) {
 
 		typename vector<Road>::iterator itRoad;
 		itRoad = find(roads.begin(), roads.end(), Road(it->getRoadID()));
 
-		//	cout << dist << endl;
 
 		unsigned long ID = getEdgeID(it->getNode1ID(), it->getNode2ID());
 		if (ID == 0) {
@@ -302,7 +294,11 @@ void RideCenter::displayGraph(vector<Vertex<Node, Road> > passNodes) {
 
 	// CHANGE PATH NODES COLOR
 	for (unsigned int i = 0; i < passNodes.size(); i++) {
-		gv->setVertexColor(passNodes[i].getInfo().getID(), BLUE);
+		if(i == 0)
+			gv->setVertexColor(passNodes[i].getInfo().getID(), RED);
+		else if(i == passNodes.size()-1)
+			gv->setVertexColor(passNodes[i].getInfo().getID(), GREEN);
+		else  gv->setVertexColor(passNodes[i].getInfo().getID(), BLUE);
 	}
 	// CHANGE PATH EDGES COLOR
 	for (unsigned int i = 0; i < passNodes.size() - 1; i++) {
@@ -331,19 +327,16 @@ bool RideCenter::TestALLNodesConected(Node Sourc, Node Dest,
 	for (unsigned int i = 0; i < points.size(); i++) {
 
 		vector<Node> nodes = graph.dfs(points[i]);
-		cout << "nodes size" << nodes.size() << endl;
+
 		for (unsigned int j = count; j < points.size(); j++) {
 			if (i == j)
 				continue;
 			if (SourcDestConected(points[j], nodes) == false) {
-				cout << i << " j: " << j << " " << "false";
-				ban = j-1;//TODO
+				ban = j-1;
 				return false;
-			} else
-				cout << i << " j: " << j << " " << " true ";
-		}
+			}
 
-		cout << endl;
+		}
 		count++;
 	}
 
@@ -365,12 +358,16 @@ bool RideCenter::SourcDestConected(Node dest, vector<Node> nodes) {
 	return false;
 }
 
+bool RideCenter::SourcDestConectedDFS(Node sourc, Node dest){
+	vector<Node> temp = graph.dfs(sourc);
+	return SourcDestConected(dest,temp);
+}
+
 unsigned long RideCenter::getEdgeID(unsigned long id_sourc,
 		unsigned long id_dest) {
 	Node Sourc = FindNode(id_sourc);
 
 	if (Sourc.getID() == 0) {
-		cout << "node id:" << id_sourc << endl;
 		return 0;
 	}
 
@@ -385,5 +382,12 @@ unsigned long RideCenter::getEdgeID(unsigned long id_sourc,
 	}
 
 	return 0;
+}
+
+
+
+Vertex<Node,Road>* RideCenter::findVertex(Node n) const
+{
+	return graph.getVertex(n);
 }
 

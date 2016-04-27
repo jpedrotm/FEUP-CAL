@@ -70,7 +70,8 @@ void Interface::newUser() {
 	int age, i = 0,numP;
 	Node N;
 	unsigned long ID;
-	Vertex<Node,Road> *v;
+	Vertex<Node,Road> *start;
+	Vertex<Node,Road> *end;
 
 	name=returnInput("Name: ","Introduce a valid name");
 
@@ -83,16 +84,20 @@ void Interface::newUser() {
 		} else cout << "ID invalid, new ID again:";
 
 		cin >> ID;
+
 		cin.clear();
 		cin.ignore(1000,'\n');
-		if((v=findPlace(Node(ID)))!=NULL)
+		if((start=findPlace(Node(ID)))!=NULL)
 		{
-			cout <<  "V NULL" << endl;
+			cout << "Node found! " << endl;
 			break;
 		}
 	}
 
-	Adress aInit = Adress(v->getInfo(), v->getAdj()[0].getEdgeInfo());
+	 Adress aInit;
+	if(start->getAdj().size()  == 0)
+		aInit = Adress(start->getInfo(), Road(0,"",false));
+	else aInit = Adress(start->getInfo(),start->getAdj()[0].getEdgeInfo());
 
 	string choice;
 
@@ -109,8 +114,10 @@ void Interface::newUser() {
 		i = 0;
 
 		while(true){
+			std::cin.clear();
 			std::cin.ignore(1000,'\n');
 			hI=returnInput("Hour to departure ?","Introduce a valid hour");
+			std::cin.clear();
 			std::cin.ignore(1000,'\n');
 			hF=returnInput("Hour to arrive ?","Introduce a valid hour");
 
@@ -124,19 +131,27 @@ void Interface::newUser() {
 
 		while (true) {
 			if (i == 0) {
-				cout << "What is the ID of your destiny Adress: ";
-				cin >> ID;
+				cout << "What is the ID Destination: ";
 				i++;
-			} else {
-				cout << "ID invalid, new ID again:";
-				cin >> ID;
+			} else cout << "ID invalid, new ID again:";
+
+			cin >> ID;
+
+			cin.clear();
+			cin.ignore(1000,'\n');
+			if((end=findPlace(Node(ID)))!=NULL)
+			{
+				if(center.SourcDestConectedDFS(start->getInfo(),end->getInfo()))
+					cout << "Node found! " << endl;
+								break;
+							}
 			}
 
-			if ((v = findPlace(Node(ID))) != NULL)
-				break;
-		}
 
-		Adress aDest = Adress(v->getInfo(), v->getAdj()[0].getEdgeInfo());
+		Adress aDest;
+		if(end->getAdj().size()  == 0)
+			aDest = Adress(end->getInfo(), Road(0,"",false));
+			else aDest = Adress(end->getInfo(),end->getAdj()[0].getEdgeInfo());
 
 		User *u = new User(name, age, aInit, aDest,numP);
 		u->setHoraInit(hI);
@@ -179,7 +194,7 @@ void Interface::defineUserDeparture(){
 
 	while (flag) {
 		name = returnInput("What is the user name ?", "Introduce a valid name." );
-		nodeID=returnInt("What is the ID of the node ?");
+		nodeID=returnDouble("What is the ID of the node ?");
 
 		for (unsigned int i = 0; i < users.size(); i++) {
 			if(users[i]->getName()==name && users[i]->getUserAdress().getLocal().getID()==nodeID)
@@ -233,12 +248,12 @@ void Interface::departure(){
 
 	while(flag){
 		name=returnInput("What is the user ?","Introduce a valid name.");
-		ID=returnInt("What is the user place ID ?");
+		ID=returnDouble("What is the user place ID ?");
 
 		while((u=findUser(name,ID)) == NULL)
 		{
 			name=returnInput("What is the user ?","Introduce a valid name.");
-			ID=returnInt("What is the user place ID ?");
+			ID=returnDouble("What is the user place ID ?");
 		}
 
 
@@ -285,12 +300,42 @@ void Interface::departure(){
 
 Vertex<Node,Road> *Interface::findPlace(Node n) const{
 
-	return center.getGraph().getVertex(n);
+	return center.findVertex(n);
 }
 
 int Interface::returnInt(string s1)
 {
 	int tmp;
+
+	bool fail = false;
+	bool eof = false;
+
+	do
+	{
+		std::cin.clear();
+
+		if (fail && !eof)
+			std::cin.ignore(100,'\n');
+
+		std::cout << s1;
+		std::cin >> tmp;
+
+		fail = false;
+		eof = false;
+
+		if (std::cin.fail())
+			fail = true;
+
+		if (std::cin.eof())
+			eof = true;
+	} while(fail || eof);
+
+	return tmp;
+}
+
+double Interface::returnDouble(string s1)
+{
+	double tmp;
 
 	bool fail = false;
 	bool eof = false;

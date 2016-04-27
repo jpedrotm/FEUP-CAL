@@ -258,28 +258,15 @@ void Graph<T, A>::dijkstraShortestPath(const T &s) {
 	make_heap(pq.begin(), pq.end());
 
 	while (!pq.empty()) {
-
-		//cout << "stack: " <<  pq.size() << endl;
-		//cout << "arestas: " <<  pq.front()->adj.size() << endl;
 		v = pq.front();
 		pop_heap(pq.begin(), pq.end());
 		pq.pop_back();
 
 		for (unsigned int i = 0; i < v->adj.size(); i++) {
 			Vertex<T, A>* w = v->adj[i].dest;
-			//cout << "peso da aresta " << v->adj[i].weight << endl;
 			if (v->dist + v->adj[i].weight < w->dist) {
-
-				//	cout << "V DIST" << v->dist;
-				//cout << "V ADD  DISTT "  << v->adj[i].weight << endl;;
-
-				//cout << w ->dist << endl;
 				w->dist = v->dist + v->adj[i].weight;
-
-				//cout << w ->dist << endl;
 				w->path = v;
-
-				//se j� estiver na lista, apenas a actualiza
 				if (!w->processing) {
 					w->processing = true;
 					pq.push_back(w);
@@ -289,14 +276,6 @@ void Graph<T, A>::dijkstraShortestPath(const T &s) {
 			}
 		}
 	}
-
-	/*cout<< "BUILD DIJS" << endl;
-	 for(int i = 0; i < vertexSet.size(); i++)
-	 {
-
-
-	 cout <<" id " << vertexSet[i]->info.getID() << " dist " << vertexSet[i]->dist << endl;
-	 }*/
 }
 
 template<class T, class A>
@@ -331,7 +310,6 @@ vector<T> Graph<T,A>::dfs(T start) const {
 	for (; it !=ite; it++)
 		(*it)->visited=false;
 	vector<T> res;
-	cout << "ID" << start.getID() << endl;
 	it = vertexSet.begin();
 	for(;it != ite;it++)
 	{
@@ -343,7 +321,6 @@ vector<T> Graph<T,A>::dfs(T start) const {
 	}
 
 	if(it == ite)
-		cout << "FIM" << endl;
 	for (; it !=ite; it++)
 	    if ( (*it)->visited==false )
 	    	dfs(*it,res);
