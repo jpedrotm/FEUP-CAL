@@ -237,7 +237,12 @@ void Interface::departure(){
 		name=returnInput("What is the user ?","Introduce a valid name.");
 		ID=returnInt("What is the user place ID ?");
 
-		u=findUser(name,ID);
+		while((u=findUser(name,ID)) == NULL)
+		{
+			name=returnInput("What is the user ?","Introduce a valid name.");
+			ID=returnInt("What is the user place ID ?");
+		}
+
 
 		if(!u->getWantDest())
 		{
